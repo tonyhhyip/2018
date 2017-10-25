@@ -1,0 +1,10 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": ["Chrome > 42", "Firefox > 44"]
+      },
+      "modules": false
+    }]
+  ]
+}

@@ -4,24 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-    <meta name="description" content="{% block meta_desc %}PyCon HK 2017 will be hosted at City University of Hong Kong on 4-5 November. PyCon HK is a python community conference hosting in Hong Kong.{% endblock %}">
-    <meta name="author" content="PyCon HK">
-    <meta property="og:site_name" content="PyCon HK 2017">
-    <meta property="og:title" content="{% block title %}PyCon HK{% endblock %}">
-    <meta property="og:url" content="{% block og_url %}{{ data.site.og.url }}{% endblock %}">
-    <meta property="og:image" content="{% block og_image %}{{ data.site.og.image }}{% endblock %}">
-    <meta property="og:type" content="{% block og_type %}{{ data.site.og.type }}{% endblock %}">
-    <meta property="og:description" content="{% block og_desc %}{{ data.site.og.description }}{% endblock %}">
-    <meta name="theme-color" content="{{ data.site.og.themeColor }}">
-    <title>{{ data.site.name }}</title>
+    <meta name="description" content="{% block meta_desc %}Hong Kong Open Source Conference 2018 (HKOSCon 2018) will be started soon.{% endblock %}">
+    <meta name="author" content="Hong Kong Open Source Conference 2018">
+    <meta property="og:site_name" content="Hong Kong Open Source Conference 2018">
+    <meta property="og:title" content="{% block title %}Hong Kong Open Source Conference 2018{% endblock %}">
+    <title>Hong Kong Open Source Conference 2018</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700|Material+Icons" rel="stylesheet">
+    <link rel="icon" sizes="48x48" href="https://hkoscon.org/logo.png">
+    <link rel="icon" sizes="96x96" href="https://hkoscon.org/logo.png">
+    <link rel="icon" sizes="144x144" href="https://hkoscon.org/logo.png">
+    <link rel="icon" sizes="192x192" href="https://hkoscon.org/logo.png">
     {% block style %}{% endblock %}
 </head>
 <body>
+{% include "navbar.jinja" %}
 <main>{% block content %}{% endblock %}</main>
 
 <script async src="https://www.googletagmanager.com/gtag/js"></script>
 <script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag('js', new Date());</script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 
 {%- if 'manifest' in assets.scripts -%}
     <script src="{{ assets.scripts.manifest }}"></script>

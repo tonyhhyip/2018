@@ -44,9 +44,9 @@ app.set('nunjecksEnv', env);
 /**
  * Setup Static Endpoint
  */
-app.use('/images', serveStatic('assets/images'));
-app.use('/data', serveStatic('assets/data'));
-app.use(serveStatic('static'));
+app.use('/2018/images', serveStatic('assets/images'));
+app.use('/2018/data', serveStatic('assets/data'));
+app.use('/2018', serveStatic('static'));
 
 /**
  * Setup Webpack Middlewares

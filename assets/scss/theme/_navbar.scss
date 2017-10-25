@@ -1,0 +1,12 @@
+nav {
+  .brand-logo {
+    color: $theme-yellow;
+    @media #{$medium-and-down} {
+      font-size: 1.3rem;
+    }
+  }
+  .button-collapse {
+    margin: 0;
+    padding: 0 20px;
+  }
+}
