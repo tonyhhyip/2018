@@ -1,0 +1,14 @@
+#banner {
+  background-image: url('/2018/images/cover.jpg');
+  min-height: 400px;
+  background-repeat: no-repeat;
+
+  .container {
+    padding-top: 20px;
+  }
+
+  .logo {
+    width: 300px;
+    @extend .center
+  }
+}
