@@ -1,0 +1,59 @@
+{
+  "name": "hkoscon-2018",
+  "version": "1.0.0",
+  "description": "Website of HKOSCon 2018",
+  "repository": "git+https://github.com/hkoscon/2018.git",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "lint": "eslint --ext .js,.jsx .",
+    "build": "node build/build",
+    "dev": "node build/dev-server",
+    "setup": "webpack --config build/webpack.dev.conf.js && rm -f public/*.js public/*.map"
+  },
+  "dependencies": {
+    "axios": "^0.17.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-runtime": "^6.26.0",
+    "gravatar": "^1.6.0",
+    "js-yaml": "^3.10.0"
+  },
+  "devDependencies": {
+    "assets-webpack-plugin": "^3.5.1",
+    "autoprefixer": "^7.1.6",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.1",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "chokidar": "^1.7.0",
+    "copy-webpack-plugin": "^4.2.0",
+    "css-loader": "^0.28.7",
+    "dotenv": "^4.0.0",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-import": "^2.8.0",
+    "express": "^4.16.2",
+    "extract-text-webpack-plugin": "^3.0.1",
+    "friendly-errors-webpack-plugin": "^1.6.1",
+    "glob": "^7.1.2",
+    "morgan": "^1.9.0",
+    "node-sass": "^4.5.3",
+    "nunjucks": "^3.0.1",
+    "optimize-css-assets-webpack-plugin": "^3.2.0",
+    "sass-loader": "^6.0.6",
+    "serve-static": "^1.13.1",
+    "shelljs": "^0.7.8",
+    "style-loader": "^0.19.0",
+    "webpack": "^3.8.1",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-hot-middleware": "^2.19.1",
+    "webpack-merge": "^4.1.0"
+  },
+  "engines": {
+    "node": "8.x",
+    "yarn": "1.x"
+  }
+}

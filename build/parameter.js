@@ -1,0 +1,62 @@
+const fs = require('fs');
+const path = require('path');
+const glob = require('glob');
+const yaml = require('js-yaml');
+
+const assetsPath = './public';
+
+function loadData() {
+  return new Promise((resolve, reject) => {
+    glob('assets/data/*.yml', (err, files) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      const promises = files.map(file => new Promise((resolve, reject) => {
+        fs.readFile(file, 'utf-8', (err, data) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve({
+              key: path.basename(file, '.yml'),
+              value: yaml.safeLoad(data),
+            });
+          }
+        });
+      }));
+      Promise.all(promises)
+        .then(pairs => pairs.reduce((obj, pair) => {
+          obj[pair.key] = pair.value;
+          return obj;
+        }, {}))
+        .then(resolve);
+    });
+  });
+}
+
+function loadAssets() {
+  return new Promise((resolve, reject) => {
+    fs.readFile(`${assetsPath}/assets.json`, 'UTF-8', (err, data) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+
+      const assets = JSON.parse(data);
+      const scripts = Object.keys(assets).reduce((obj, key) => {
+        obj[key] = assets[key].js;
+        return obj;
+      }, {});
+      const styles = Object.keys(assets).reduce((obj, key) => {
+        if ('css' in assets[key]) {
+          obj[key] = assets[key].css;
+        }
+        return obj;
+      }, {});
+      resolve({ scripts, styles });
+    });
+  });
+}
+
+exports.loadData = loadData;
+exports.loadAssets = loadAssets;
