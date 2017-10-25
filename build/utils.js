@@ -7,18 +7,18 @@ exports.cssLoaders = (opts) => {
     loader: 'css-loader',
     options: {
       minimize: process.env.NODE_ENV === 'production',
-      sourceMap: options.sourceMap,
+      sourceMap: true,
     },
   };
 
   // generate loader string to be used with extract text plugin
   function generateLoaders(loader, loaderOptions) {
-    const loaders = ['style-loader', cssLoader];
+    const loaders = [cssLoader];
     if (loader) {
       loaders.push({
         loader: `${loader}-loader`,
         options: Object.assign({}, loaderOptions, {
-          sourceMap: options.sourceMap,
+          sourceMap: true,
         }),
       });
     }
@@ -31,7 +31,7 @@ exports.cssLoaders = (opts) => {
         fallback: 'style-loader',
       });
     }
-    return loaders;
+    return ['style-loader'].concat(loaders);
   }
 
   return {
