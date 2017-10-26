@@ -118,4 +118,47 @@
     display: none;
   }
 
+  &#follow-us {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 1em 0;
+    .title {
+      text-align: center;
+      p {
+        color: #777;
+      }
+    }
+    .sns-plugins {
+      display: flex;
+      text-align: center;
+      width: 80%;
+      margin: 10vh auto;
+      justify-content: center;
+      @media #{$small-and-down} {
+        width: 100%;
+        display: block;
+      }
+
+      .separator {
+        width: 2em;
+        @media #{$small-and-down} {
+          display: none;
+        }
+      }
+      .sns-container {
+        @extend .z-depth-2;
+        position: relative;
+        width: 500px;
+        height: 600px;
+        overflow: hidden;
+        @media #{$small-and-down} {
+          display: block;
+          width: 90%;
+          height: 70vh;
+          width: 90vw;
+          margin: 0 auto 2em;
+          overflow: hidden;
+        }
+      }
+    }
+  }
 }
