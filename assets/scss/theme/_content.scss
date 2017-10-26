@@ -1,7 +1,7 @@
 .container.document {
   .content {
     padding: 2em 0 6em;
-    ul {
+    ul:not(.section) {
       padding-left: 1em;
       li {
         list-style-type: disc;
