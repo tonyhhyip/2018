@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const shell = require('shelljs');
 const glob = require('glob');
 const { Environment, FileSystemLoader } = require('nunjucks');
+const { minify } = require('html-minifier');
 const config = require('./webpack.prod.conf');
 const { loadData, loadAssets } = require('./parameter');
 
@@ -32,40 +33,57 @@ function buildAssets() {
   });
 }
 
-async function buildPages() {
-  const data = await loadData();
-  const assets = await loadAssets();
-
-  const layoutsLoader = new FileSystemLoader('assets/layouts');
-  const pagesLoader = new FileSystemLoader('assets/pages');
-
-  const env = new Environment([pagesLoader, layoutsLoader]);
+function getPageFiles() {
   return new Promise((resolve, reject) => {
     glob('assets/pages/**/*.jinja', (err, files) => {
       if (err) {
         reject(err);
-        return;
+      } else {
+        resolve(files);
       }
-      const promises = files.map(file => new Promise((resolve, reject) => {
-        const res = env.render(file.replace('assets/pages/', ''), { assets, data });
-        fs.writeFile(file.replace('jinja', 'html').replace('assets/pages', 'public'), res, 'UTF-8', (err) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve();
-          }
-        });
-      }));
-
-      Promise.all(promises)
-        .then(() => console.log('All pages is rendered'))
-        .then(resolve)
-        .catch(reject);
     });
   });
 }
 
-(async function () {
+const minifyOption = {
+  removeComments: true,
+  minifyJS: true,
+  collapseWhitespace: true,
+  conservativeCollapse: true,
+  html5: true,
+};
+
+function createRenderPagePromise(env, assets, data, file) {
+  return new Promise((resolve, reject) => {
+    const res = env.render(file.replace('assets/pages/', ''), { assets, data });
+    const content = minify(res, minifyOption);
+    const filepath = file.replace('jinja', 'html').replace('assets/pages', 'public');
+    fs.writeFile(filepath, content, 'utf-8', (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
+async function buildPages() {
+  const layoutsLoader = new FileSystemLoader('assets/layouts');
+  const pagesLoader = new FileSystemLoader('assets/pages');
+  const env = new Environment([pagesLoader, layoutsLoader]);
+
+  const files = await getPageFiles();
+  const data = await loadData();
+  const assets = await loadAssets();
+  const promises = files.map(createRenderPagePromise.bind(null, env, assets, data));
+
+  return Promise.all(promises)
+    .then(() => console.log('All pages is rendered'));
+}
+
+
+(async () => {
   await buildAssets();
   await buildPages();
-}());
+})();
