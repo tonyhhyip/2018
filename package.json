@@ -8,7 +8,7 @@
   "scripts": {
     "lint": "eslint --ext .js,.jsx .",
     "build": "node build/build",
-    "dev": "node build/dev-server",
+    "dev": "webpack-dashboard -- node build/dev-server",
     "setup": "webpack --config build/webpack.dev.conf.js && rm -f public/*.js public/*.map"
   },
   "dependencies": {
@@ -16,7 +16,8 @@
     "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.26.0",
     "gravatar": "^1.6.0",
-    "js-yaml": "^3.10.0"
+    "js-yaml": "^3.10.0",
+    "webpack-dashboard": "^1.0.0"
   },
   "devDependencies": {
     "assets-webpack-plugin": "^3.5.1",
