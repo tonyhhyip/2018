@@ -10,5 +10,7 @@ if (process.env.NODE_ENV === 'production' && window.location.host !== 'localhost
 }
 
 $('.button-collapse').sideNav();
+$('.collapsible').collapsible();
+$('.collapsible a.collapsible-header').click((e) => { e.preventDefault(); });
 $('.scrollspy').scrollSpy();
 
