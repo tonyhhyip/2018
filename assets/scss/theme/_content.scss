@@ -34,4 +34,10 @@
     margin: 1.5em 0 1em;
     color: rgba(0,0,0,0.6);
   }
+
+  a[target]::after {
+    @extend .material-icons;
+    font-family: 'Material Icons', sans-serif;
+    content: 'open_in_new';
+  }
 }
