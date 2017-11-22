@@ -3,6 +3,7 @@ const merge = require('webpack-merge');
 const { HotModuleReplacementPlugin, NoEmitOnErrorsPlugin, DefinePlugin } = require('webpack');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const AssetsWebpackPlugin = require('assets-webpack-plugin');
+const WebpackDashboard = require('webpack-dashboard/plugin');
 const baseConfig = require('./webpack.base.conf');
 const utils = require('./utils');
 const config = require('../config');
@@ -27,5 +28,6 @@ module.exports = merge.smart(baseConfig, {
       path: path.join(process.cwd(), 'public'),
       prettyPrint: true,
     }),
+    new WebpackDashboard(),
   ],
 });
