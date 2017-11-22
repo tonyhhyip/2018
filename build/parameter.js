@@ -5,33 +5,38 @@ const yaml = require('js-yaml');
 
 const assetsPath = './public';
 
-function loadData() {
+function globData() {
   return new Promise((resolve, reject) => {
     glob('assets/data/*.yml', (err, files) => {
       if (err) {
         reject(err);
-        return;
+      } else {
+        resolve(files);
       }
-      const promises = files.map(file => new Promise((resolve, reject) => {
-        fs.readFile(file, 'utf-8', (err, data) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve({
-              key: path.basename(file, '.yml'),
-              value: yaml.safeLoad(data),
-            });
-          }
-        });
-      }));
-      Promise.all(promises)
-        .then(pairs => pairs.reduce((obj, pair) => {
-          obj[pair.key] = pair.value;
-          return obj;
-        }, {}))
-        .then(resolve);
     });
   });
+}
+
+async function loadData() {
+  const files = await globData();
+  const promises = files.map(file => new Promise((resolve, reject) => {
+    fs.readFile(file, 'utf-8', (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve({
+          key: path.basename(file, '.yml'),
+          value: yaml.safeLoad(data),
+        });
+      }
+    });
+  }));
+
+  return Promise.all(promises)
+    .then(pairs => pairs.reduce((obj, pair) => {
+      obj[pair.key] = pair.value;
+      return obj;
+    }, {}));
 }
 
 function loadAssets() {

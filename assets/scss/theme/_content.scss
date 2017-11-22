@@ -1,7 +1,7 @@
 .container.document {
   .content {
     padding: 2em 0 6em;
-    ul {
+    ul:not(.section) {
       padding-left: 1em;
       li {
         list-style-type: disc;
@@ -33,5 +33,11 @@
   h4 {
     margin: 1.5em 0 1em;
     color: rgba(0,0,0,0.6);
+  }
+
+  a[target]::after {
+    @extend .material-icons;
+    font-family: 'Material Icons', sans-serif;
+    content: 'open_in_new';
   }
 }

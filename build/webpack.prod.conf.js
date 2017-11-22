@@ -21,6 +21,7 @@ module.exports = merge.smart(base, {
     chunkFilename: '[id].[chunkhash].js',
   },
   plugins: [
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new AssetsWebpackPlugin({
       filename: 'assets.json',
       path: path.join(process.cwd(), 'public'),

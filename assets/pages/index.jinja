@@ -1,6 +1,7 @@
 {% extends "default.jinja" %}
 
 {% block content %}
+    <div id="fb-root"></div>
     <div id="banner" class="page-home">
         <div class="banner-content">
             <h1 id="banner-logo">
@@ -16,10 +17,10 @@
             <div class="contacts">
                 <ul>
                     <li>
-                        <a href="https://facebook.com/hkoscon/" target="_blank" title="facebook.com/hkoscon"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        <a href="https://facebook.com/hkoscon/" target="_blank" rel="noopener" title="facebook.com/hkoscon"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                     </li>
                     <li>
-                        <a href="https://twitter.com/hkoscon/" target="_blank" title="twitter.com/hkoscon"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                        <a href="https://twitter.com/hkoscon/" target="_blank" rel="noopener" title="twitter.com/hkoscon"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                     </li>
                     <li>
                         <a href="mailto:conference@opensource.hk" title="conference at opensource.hk"><i class="fa fa-envelope" aria-hidden="true"></i></a>
@@ -28,4 +29,52 @@
             </div>
         </div>
     </div>
+
+    <div id="follow-us" class="page-home">
+        <div class="title">
+            <h2>News</h2>
+            <p>Stay tuned on Facebook and Twitter</p>
+        </div>
+        <div class="sns-plugins">
+            <div class="sns-container">
+                <div class="fb-page"
+                     data-href="https://www.facebook.com/hkoscon"
+                     data-width="500"
+                     data-height="600"
+                     data-tabs="timeline"
+                     data-small-header="true"
+                     data-adapt-container-width="true"
+                     data-show-facepile="false">
+                    <blockquote cite="https://www.facebook.com/hkoscon" class="fb-xfbml-parse-ignore">
+                        <a href="https://www.facebook.com/hkoscon">HKOSCon on Facebook</a>
+                    </blockquote>
+                </div>
+            </div>
+            <div class="separator"></div>
+            <div class="sns-container">
+                <a class="twitter-timeline"
+                   data-lang="en"
+                   data-width="500"
+                   data-height="600"
+                   data-theme="light"
+                   data-link-color="#294454"
+                   href="https://twitter.com/hkoscon">
+                    <blockquote cite="https://twitter.com/hkoscon">
+                        HKOSCon on Twitter
+                    </blockquote>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 {% endblock %}
