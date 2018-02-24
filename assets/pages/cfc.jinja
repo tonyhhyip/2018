@@ -14,74 +14,23 @@
                 <p>
                     Hong Kong Open Source Conference (HKOSCon) is aimed to promote,
                     support and develop open source projects and communities.
-                    To address our mission, we revises our process and styles every year,
-                    and makes any changes if necessary.
                 </p>
                 <p>
-                    HKOSCon 2018 is now calling for open source communities to participate and host their sessions and activities.
-                    We looks forward to cooperate with your community to support and contribute the open source community.
-                </p>
-                <p>
-                    Your community can host your own sessions in your track,
-                    a community track can promote open source projects developed by your community.
+                    The Call for Communities is now closed.
                 </p>
 
-                <div id="import-date" class="scrollspy">
-                    <h3>Import Date</h3>
+                <div id="participant-communities" class="scrollspy">
+                    <h3>Participant Communities</h3>
                     <p>
-                        <strong>Community Registration:</strong>
-                        <a href="https://goo.gl/forms/75Sxnd8lmKSGbweE3" target="_blank">https://goo.gl/forms/75Sxnd8lmKSGbweE3</a>
-                        <br>
-                        <strong>Closing date of this call:</strong> 30 November 2017.<br>
-                        <strong>Tentative CFP Month:</strong> January 2018.<br>
-                        <strong>Tentative Conference Month:</strong> June 2018.<br>
+                        The following communities would participant in HKOSCon 2018 (in alphabetic order):
                     </p>
-                </div>
-                <div id="entitled" class="scrollspy">
-                    <h3>Your community will be entitled with:</h3>
                     <ul>
-                        <li>2 30-min sessions or more.</li>
-                        <li>Program vetting for CFP of your track.</li>
-                        <li>Inviting your speaker(s) for your track.</li>
-                        <li>Logo is listed as "participating communities" in alphabetical order on conference website.</li>
-                    </ul>
-                </div>
-
-                <div id="responsibility" class="scrollspy">
-                    <h3>Responsibility of your community</h3>
-                    <ul>
-                        <li>
-                            Calls for proposals (CFP) in January in your community.
-                            At least 50% of your sessions are from CFP of your track.
-                            Sharing all CFP data with the conference program team.
-                        </li>
-                        <li>Promote sessions of your track and the conference in your community in March to June.</li>
-                        <li>Host and manage all sessions in your track.</li>
-                        <li>Taking photos for your sessions and activities, uploading to your community.</li>
-                        <li>Assist video recording for your track.</li>
-                        <li>
-                            Submit a summary report (200+ words) with attendance data of your sessions and activities,
-                            uploaded photos, your comments and suggestions.
-                        </li>
-                    </ul>
-                </div>
-
-                <div id="requirements" class="scrollspy">
-                    <h3>Requirements</h3>
-                    <p>Open source community applying this scheme must released source codes in one of open source licenses.</p>
-                </div>
-
-                <div id="discussion" class="scrollspy">
-                    <h3>Discussion and Q&A</h3>
-                    <ul>
-                        <li>
-                            <a href="https://www.facebook.com/groups/opensourcehk/permalink/1593669263987325/" target="_blank">
-                                Facebook Group
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://hackmd.io/s/r1iDRMBiW" target="_blank">HackMD</a>
-                        </li>
+                        {%- for community in data.community -%}
+                            <li>
+                                {{- community.name -}}
+                                {%- if community.organizer -%}&nbsp;(Organizer){%- endif -%}
+                            </li>
+                        {%- endfor -%}
                     </ul>
                 </div>
             </div>
@@ -89,11 +38,7 @@
                 <div class="toc-wrapper scrollspy">
                     <div>
                         <ul class="section table-of-contents">
-                            <li><a href="#import-date">Import Date</a></li>
-                            <li><a href="#entitled">Your community will be entitled with</a></li>
-                            <li><a href="#responsibility">Responsibility of your community</a></li>
-                            <li><a href="#requirements">Requirements</a></li>
-                            <li><a href="#discussion">Discussion and Q&A</a></li>
+                            <li><a href="#participant-communities">Participant Communities</a></li>
                         </ul>
                     </div>
                 </div>
