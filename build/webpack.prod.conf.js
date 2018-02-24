@@ -85,10 +85,13 @@ module.exports = merge.smart(base, {
     new SWPrecacheWebpackPlugin({
       cacheId: 'hkoscon-2018',
       filename: 'service-worker.js',
-      minify: true,
+      minify: false,
       navigateFallback: '/2018/index.html',
       staticFileGlobsIgnorePatterns: [/\.map$/, /asset\.json$/],
-      staticFileGlobs: ['/2018/**/*.*'],
+      staticFileGlobs: ['public/**/*.*'],
+      stripPrefixMulti: {
+        public: '2018',
+      },
       logger(message) {
         if (message.indexOf('Total precache size is') === 0) {
           // This message occurs for every build and is a bit too noisy.
