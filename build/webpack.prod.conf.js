@@ -85,7 +85,7 @@ module.exports = merge.smart(base, {
     new SWPrecacheWebpackPlugin({
       cacheId: 'hkoscon-2018',
       filename: 'service-worker.js',
-      minify: false,
+      minify: true,
       navigateFallback: '/2018/index.html',
       staticFileGlobsIgnorePatterns: [/\.map$/, /asset\.json$/],
       staticFileGlobs: ['public/**/*.*'],
