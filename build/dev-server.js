@@ -87,9 +87,12 @@ async function updateData() {
   updateData();
 })();
 
-chokidar.watch('./assets/data/*.yml', updateData);
+const watcher = chokidar.watch('./assets/data/*.yml');
+watcher.on('change', updateData);
+watcher.on('add', updateData);
+watcher.on('unlink', updateData);
 
-chokidar.watch('./public/assets.json', updateAssets);
+chokidar.watch('./public/assets.json').on('change', updateAssets);
 
 app.get('/2018/*', (req, res) => {
   let url = req.path;
