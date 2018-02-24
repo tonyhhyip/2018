@@ -55,7 +55,7 @@ app.use('/2018', serveStatic('static'));
 const compiler = webpack(devConfig);
 const devMiddleware = webpackDevMiddleware(compiler, {
   publicPath: devConfig.output.publicPath,
-  quiet: true,
+  logLevel: 'silent',
 });
 const hotMiddleware = webpackHotMiddleware(compiler, {
   log: () => {},
