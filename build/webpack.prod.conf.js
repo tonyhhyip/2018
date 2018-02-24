@@ -90,7 +90,7 @@ module.exports = merge.smart(base, {
       staticFileGlobsIgnorePatterns: [/\.map$/, /asset\.json$/],
       staticFileGlobs: ['public/**/*.*'],
       stripPrefixMulti: {
-        public: '2018',
+        public: '/2018',
       },
       logger(message) {
         if (message.indexOf('Total precache size is') === 0) {
