@@ -1,0 +1,63 @@
+{% extends "default.jinja" %}
+{%- block content -%}
+    <div class="theme-area">
+        <div class="content">
+            <div class="container">
+                <h1>Call for Paper</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="container document">
+        <div class="content row">
+            <div class="col s12 m8 l10">
+                <p>
+                    Hong Kong Open Source Conference (HKOSCon) is aimed to promote,
+                    support and develop open source projects and communities.
+                </p>
+                <p>
+                    HKOSCon 2018 is now calling for paper.
+                    We looks forward to you to submit your paper for sessions hosted by our organizer or participant community.
+                </p>
+
+                <div id="import-date" class="scrollspy">
+                    <h3>Import Date</h3>
+                    <p>
+                        <strong>Closing date of this call:</strong>  <time>28 February 2018 (Wedensday)</time><br>
+                        <strong>Announcement Date of Initial Results:</strong> 15 March 2018 (Thursday)<br>
+                        <strong>Tentative Conference Date:</strong> 2-3 June 2018 (Saturday-Sunday)<br>
+                    </p>
+                </div>
+
+                <div id="apply" class="scrollspy">
+                    <h3>Applying</h3>
+                    <p>You may apply for the main track at <a href="https://goo.gl/forms/g4srWkTDHMxcBYx03">https://goo.gl/forms/g4srWkTDHMxcBYx03</a></p>
+                    <p>Here are the link for applying CFP of different:</p>
+                    <ul>
+                        {%- for c in data.community -%}
+                            {%- if 'cfp' in c -%}
+                                <li>
+                                    <a href="{{- c.cfp -}}">
+                                        {{- c.name -}}
+                                    </a>
+                                    {%- if c.organizer %} (Organizer){%- endif -%}
+                                </li>
+                            {%- endif -%}
+                        {%- endfor -%}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col hide-on-small-only m3 l2">
+                <div class="toc-wrapper scrollspy">
+                    <div>
+                        <ul class="section table-of-contents">
+                            <li><a href="#import-date">Import Date</a></li>
+                            <li><a href="#apply">Apply</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{%- endblock -%}

@@ -3,7 +3,11 @@ import './ga';
 import '../scss/app.scss';
 import './toc';
 
-/* globals $, window */
+/* globals $, window, navigator */
+
+if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/2018/service-worker.js');
+}
 
 if (process.env.NODE_ENV === 'production' && window.location.host !== 'localhost' && window.location.protocol !== 'https:') {
   window.location.href = window.location.href.replace('http://', 'https://');
