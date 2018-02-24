@@ -6,7 +6,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 const AssetsWebpackPlugin = require('assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const utils = require('./utils');
 const config = require('../config');
 
@@ -82,21 +81,6 @@ module.exports = merge.smart(base, {
         ignore: ['.*'],
       },
     ]),
-    new SWPrecacheWebpackPlugin({
-      cacheId: 'hkoscon-2018',
-      filename: 'service-worker.js',
-      minify: true,
-      navigateFallback: '/2018/index.html',
-      staticFileGlobsIgnorePatterns: [/\.map$/, /asset\.json$/],
-      staticFileGlobs: ['/2018/**/*.*'],
-      logger(message) {
-        if (message.indexOf('Total precache size is') === 0) {
-          // This message occurs for every build and is a bit too noisy.
-          return;
-        }
-        console.log(message);
-      },
-    }),
   ],
 });
 

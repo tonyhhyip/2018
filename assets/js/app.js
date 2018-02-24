@@ -5,7 +5,7 @@ import './toc';
 
 /* globals $, window, navigator */
 
-if ('serviceWorker' in navigator) {
+if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
   navigator.serviceWorker.register('/2018/service-worker.js');
 }
 

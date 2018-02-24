@@ -12,6 +12,7 @@ node_js:
 
 script:
   - yarn build
+  - yarn sw
   - yarn lint
 
 deploy:
