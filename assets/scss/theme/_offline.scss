@@ -1,0 +1,7 @@
+[data-network=online] .offline-only {
+    display: none !important;
+}
+
+[data-network=offline]  .online-only {
+  display: none !important;
+}

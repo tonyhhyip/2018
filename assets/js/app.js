@@ -2,6 +2,7 @@ import 'babel-polyfill';
 import './ga';
 import '../scss/app.scss';
 import './toc';
+import './offline';
 
 /* globals $, window, navigator */
 

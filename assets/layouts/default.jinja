@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="{{ assets.styles.app }}">
     {%- endif -%}
 </head>
-<body>
+<body data-network="online">
 {%- include "navbar.jinja" -%}
 <main>{%- block content -%}{%- endblock -%}</main>
 {%- include "footer.jinja" -%}
