@@ -14,6 +14,10 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     symlinks: false,
   },
+  externals: {
+    jquery: 'jQuery',
+    modernizr: 'Modernizr',
+  },
   module: {
     rules: [
       {

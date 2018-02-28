@@ -1,0 +1,8 @@
+[data-easter-egg=pwa] {
+  display: none;
+  &.match {
+    display: block;
+  }
+  top: 10px;
+  z-index: 1000;
+}
