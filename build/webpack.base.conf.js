@@ -30,6 +30,13 @@ module.exports = {
         },
       },
       { test: /\.jsx?$/, use: ['babel-loader'] },
+      {
+        test: /\.(png|jpe?g|gif)$/,
+        loader: 'url-loader',
+        options: {
+          name: 'images/[name].[ext]',
+        },
+      },
     ],
   },
 };
