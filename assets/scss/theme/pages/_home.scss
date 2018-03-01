@@ -162,3 +162,117 @@
     }
   }
 }
+
+#days-details {
+  .content-wrapper {
+    padding: 1em 0 2em;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .days-details-slogan {
+    position: relative;
+    top: 5vh;
+    text-align: center;
+    h2 {
+      font-size: 1.5em;
+    }
+    p {
+      font-size: 1em;
+      color: #777;
+    }
+  }
+  .days-details-container {
+    display: flex;
+    flex-direction: row;
+    max-width: 1200px;
+    margin: 10vh auto;
+
+    @media #{$small-and-down} {
+      display: block;
+      width: 100%;
+      margin-bottom: 0;
+    }
+
+    .separator {
+      flex: initial;
+      width: 60px;
+    }
+    .day-1 .title-wrapper {
+      background: url('./images/theme-day1.jpg') center;
+    }
+    .day-2 .title-wrapper {
+      background: url('./images/theme-day2.jpg') center;
+    }
+
+    .day-details {
+      @extend .z-depth-2;
+      flex: 1;
+      background: #FFF;
+
+      @media #{$small-and-down} {
+        margin-bottom: 3em;
+      }
+
+      .title-wrapper {
+        background-size: cover;
+      }
+      .title {
+        position: relative;
+        height: 10em;
+        background-color: rgba(0,0,0,.6);
+        .label {
+          display: block;
+          position: absolute;
+          box-shadow: 2px 2px rgba(0,0,0,.2);
+          top: 0; left: 0;
+          border-radius: 0.3em;
+
+          .day-name, .day-date {
+            display: inline-block;
+            padding: .5em 1em;
+          }
+          .day-name {
+            display: none;
+            //background-color: $primary-color-light;
+            //color: #FFF;
+          }
+          .day-date {
+            background-color: $primary-color;
+            color: $theme-yellow;
+            .day {
+              font-weight: bold;
+            }
+          }
+        }
+        h3 {
+          position: absolute;
+          width: 100%;
+          margin: 0;
+          display: block;
+          bottom: 0;
+          font-size: 1.7rem;
+          padding: .5em;
+          color: lighten($theme-yellow, 15%);
+          text-shadow: 2px 2px .5em #000;
+        }
+        .slogan {
+          font-size: 1.2rem;
+          position: absolute;
+          bottom: 0;
+          font-size: 1.7rem;
+        }
+      }
+
+      .content {
+        padding: 1em 2em 1.5em;
+        ul {
+          padding-left: 1em;
+          list-style-type:circle;
+          li {
+            list-style-type:circle;
+          }
+        }
+      }
+    }
+  }
+}

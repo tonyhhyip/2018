@@ -8,6 +8,7 @@ exports.cssLoaders = (opts) => {
     options: {
       minimize: process.env.NODE_ENV === 'production',
       sourceMap: true,
+      url: false,
     },
   };
 
