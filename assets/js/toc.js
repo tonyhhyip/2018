@@ -1,4 +1,4 @@
-/* global $ */
+import $ from 'jquery';
 // Floating-Fixed table of contents
 setTimeout(() => {
   const $nav = $('nav');
