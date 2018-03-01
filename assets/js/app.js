@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 import $ from 'jquery';
-// import './https';
+import './https';
 import './ga';
 import './sw';
 import '../scss/app.scss';
