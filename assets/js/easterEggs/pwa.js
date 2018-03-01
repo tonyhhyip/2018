@@ -1,12 +1,14 @@
 import swal from 'sweetalert';
+import Modernizr from 'modernizr';
 
 /* globals navigator, document, window */
+
 export function match() {
   if (window.matchMedia('(display-mode: standalone)').matches) {
     return false;
   }
   // is it Android
-  if (navigator.userAgent.indexOf('Android') !== -1) {
+  if (Modernizr.serviceworker && Modernizr.android) {
     return navigator.userAgent.match(/Firefox|Chrome/);
   }
 
@@ -19,7 +21,7 @@ export function add() {
   button.addEventListener('click', (e) => {
     e.preventDefault();
     swal({
-      title: 'Yow! You have Service Worker!',
+      title: 'Yo! You have Service Worker!',
       text: 'You can click "Add the home screen" to install in your phone and access offline',
       icon: 'success',
     });

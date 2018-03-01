@@ -6,6 +6,7 @@ import './sw';
 import '../scss/app.scss';
 import './toc';
 import './offline';
+import './detect';
 import './eggs';
 
 $('.button-collapse').sideNav();
