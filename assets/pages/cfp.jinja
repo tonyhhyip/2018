@@ -3,7 +3,7 @@
     <div class="theme-area">
         <div class="content">
             <div class="container">
-                <h1>Call for Paper</h1>
+                <h1>Call for Paper Result</h1>
             </div>
         </div>
     </div>
@@ -16,14 +16,13 @@
                     support and develop open source projects and communities.
                 </p>
                 <p>
-                    HKOSCon 2018 is now calling for paper.
-                    We looks forward to you to submit your paper for sessions hosted by our organizer or participant community.
+                    Call for paper has come to an end.
                 </p>
 
                 <div id="import-date" class="scrollspy">
                     <h3>Import Date</h3>
                     <p>
-                        <strong>Closing date of this call:</strong>  <time>28 February 2018 (Wedensday)</time><br>
+                        <del><strong>Closing date of this call:</strong>  <time>28 February 2018 (Wedensday)</time><br></del>
                         <strong>Announcement Date of Initial Results:</strong> 15 March 2018 (Thursday)<br>
                         <strong>Tentative Conference Date:</strong> 2-3 June 2018 (Saturday-Sunday)<br>
                     </p>
@@ -46,6 +45,20 @@
                         {%- endfor -%}
                     </ul>
                 </div>
+                
+                <div id="result" class="scrollspy">
+                    <h3>Result</h3>
+                    {%- for result in data.cfp -%}
+                        <section>
+                            <h4>{{ result.community }}</h4>
+                            <ul>
+                                {%- for topic in result.topics  -%}
+                                    <li>{{ topic }}</li>
+                                {%- endfor -%}
+                            </ul>
+                        </section>
+                    {%- endfor -%}
+                </div>
             </div>
 
             <div class="col hide-on-small-only m3 l2">
@@ -54,6 +67,7 @@
                         <ul class="section table-of-contents">
                             <li><a href="#import-date">Import Date</a></li>
                             <li><a href="#apply">Apply</a></li>
+                            <li><a href="#result">Result</a></li>
                         </ul>
                     </div>
                 </div>
