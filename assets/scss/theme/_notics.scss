@@ -1,0 +1,46 @@
+.notice-card {
+  overflow-x: hidden;
+  position: fixed;
+  right: 23px;
+  bottom: 23px;
+  margin-bottom: 0;
+  z-index: 2;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+
+  opacity: 0;
+  display: block;
+  width: 40px;
+  height: 40px;
+  transition: opacity 8s, width 2s, height 2s, font-size 10s;
+
+  i.close {
+    cursor: pointer;
+  }
+
+  &.active {
+    opacity: 1;
+    display: block;
+    width: 370px;
+    height: 200px;
+    z-index: 998;
+    h4 {
+      font-size: 2rem;
+    }
+
+    p, .btn {
+      font-size: 1rem;
+    }
+
+    .btn, p, h4 {
+      opacity: 1;
+    }
+  }
+
+  h4, p, .btn {
+    opacity: 0;
+    overflow: auto;
+    font-size: .1rem;
+  }
+}
