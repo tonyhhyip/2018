@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,13 +21,19 @@
         <link rel="stylesheet" href="{{ assets.styles.app }}">
     {%- endif -%}
 </head>
-<body>
+<body data-network="online">
+<div class="fixed-action-btn" data-easter-egg="pwa">
+    <button class="btn-floating btn-large secondary">
+        <i class="large material-icons primary-text">new_releases</i>
+    </button>
+</div>
 {%- include "navbar.jinja" -%}
 <main>{%- block content -%}{%- endblock -%}</main>
 {%- include "footer.jinja" -%}
 <script async src="https://www.googletagmanager.com/gtag/js"></script>
 <script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag('js', new Date());</script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 

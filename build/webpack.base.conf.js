@@ -14,6 +14,10 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     symlinks: false,
   },
+  externals: {
+    jquery: 'jQuery',
+    modernizr: 'Modernizr',
+  },
   module: {
     rules: [
       {
@@ -26,6 +30,13 @@ module.exports = {
         },
       },
       { test: /\.jsx?$/, use: ['babel-loader'] },
+      {
+        test: /\.(png|jpe?g|gif)$/,
+        loader: 'url-loader',
+        options: {
+          name: 'images/[name].[ext]',
+        },
+      },
     ],
   },
 };
