@@ -22,14 +22,12 @@
     {%- endif -%}
 </head>
 <body data-network="online">
-<div class="fixed-action-btn" data-easter-egg="pwa">
-    <button class="btn-floating btn-large secondary">
-        <i class="large material-icons primary-text">new_releases</i>
-    </button>
-</div>
 {%- include "navbar.jinja" -%}
 <main>{%- block content -%}{%- endblock -%}</main>
 {%- include "footer.jinja" -%}
+
+{%- include "easterEggs/pwa.jinja" -%}
+
 <script async src="https://www.googletagmanager.com/gtag/js"></script>
 <script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag('js', new Date());</script>
 
