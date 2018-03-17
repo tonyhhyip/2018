@@ -21,52 +21,23 @@ if (process.env.NODE_ENV === 'production' && Modernizr.serviceworker) {
               // It's the perfect time to display a "New content is
               // available; please refresh." message in your web app.
 
-              /* globals document, window */
-              const btn = document.createElement('button');
-              btn.classList.add('btn', 'btn-large', 'btn-floating', 'pulse', 'secondary');
-              const icon = document.createElement('i');
-              icon.classList.add('large', 'material-icons', 'primary-text');
-              icon.innerText = 'autorenew';
-              btn.appendChild(icon);
-
-              const wrapper = document.createElement('div');
-              wrapper.classList.add('fixed-action-btn');
-              wrapper.appendChild(btn);
-              document.body.appendChild(wrapper);
-
-              const message = document.createElement('div');
-
-              const closeIcon = document.createElement('i');
-              closeIcon.addEventListener('click', () => {
+              /* globals document */
+              const template = document.querySelector('template[data-easter-egg=update]');
+              const clone = document.importNode(template.content, true);
+              const message = clone.querySelector('div.notice-card');
+              const close = clone.querySelector('i.close');
+              const btn = clone.querySelector('button.pulse');
+              close.addEventListener('click', () => {
                 message.classList.remove('active');
                 btn.parentNode.classList.remove('hide');
               });
-              closeIcon.classList.add('material-icons', 'close');
-              closeIcon.innerText = 'close';
-
-              message.appendChild(closeIcon);
-
-              const title = document.createElement('h4');
-              title.innerText = 'New content is available';
-              message.appendChild(title);
-
-              const content = document.createElement('p');
-              content.innerText = 'Please refresh your browser';
-              message.appendChild(content);
-              message.classList.add('notice-card');
-
-              const refresh = document.createElement('button');
-              refresh.classList.add('btn', 'primary-text', 'secondary');
-              refresh.innerText = 'Refresh';
-              refresh.addEventListener('click', () => window.reload());
-              message.appendChild(refresh);
-
-              document.body.appendChild(message);
 
               btn.addEventListener('click', () => {
                 message.classList.add('active');
                 btn.parentNode.classList.add('hide');
               });
+
+              document.body.appendChild(clone);
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a
