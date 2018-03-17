@@ -1,0 +1,100 @@
+{% extends "default.jinja" %}
+
+{% block content %}
+    <div class="theme-area">
+        <div class="content">
+            <div class="container">
+                <h1>Schedule</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container schedule">
+        <div class="row">
+            <div class="col s12">
+                <ul class="tabs z-depth-2 secondary">
+                    <li class="tab col s3">
+                        <a href="#day1" class="active primary-text">Day 1</a>
+                    </li>
+                    <li class="tab col s3">
+                        <a href="#day2" class="primary-text">Day 2</a>
+                    </li>
+                    <li class="col s2 filter">
+                        <span>
+                            <i class="material-icons">filter_list</i>
+                            Filter
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div id="day1" class="col s12" data-day="1">
+                <div class="timeslot">
+                    <div class="startTime">
+                        <span class="hours">14</span>
+                        <span class="minutes">00</span>
+                    </div>
+
+                    <div class="sessions">
+                        <div class="session-wrap">
+                            <div class="session">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <span class="card-title">Card Title</span>
+                                        <p>English / LT 101</p>
+                                        <button class="btn-floating halfway-fab z-depth-0">
+                                            <i class="material-icons">event</i>
+                                        </button>
+                                    </div>
+                                    <div class="tags">
+                                        <div class="tag">
+                                            <i class="material-icons">local_offer</i>
+                                            <span>Tag</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="speakers">
+                                        <div class="speaker">
+                                            <i class="material-icons">person</i>
+                                            <div class="person">
+                                                <span class="name">Tony Yip</span>
+                                                <span class="title">SITCON</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="session-wrap">
+                            <div class="session">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <span class="card-title">Card Title</span>
+                                        <p>English / LT 101</p>
+                                    </div>
+                                    <div class="tags">
+                                        <div class="tag">
+                                            <i class="material-icons">local_offer</i>
+                                            <span>Tag</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="speakers">
+                                        <div class="speaker">
+                                            <i class="material-icons">person</i>
+                                            <div class="person">
+                                                <span class="name">Tony Yip</span>
+                                                <span class="title">SITCON</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="day2" class="col s12" data-day="2">
+                Day 2
+            </div>
+        </div>
+    </div>
+{% endblock %}
