@@ -1,4 +1,4 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 exports.cssLoaders = (opts) => {
   const options = opts || {};
@@ -27,10 +27,7 @@ exports.cssLoaders = (opts) => {
     // Extract CSS when that option is specified
     // (which is the case during production build)
     if (options.extract) {
-      return ExtractTextPlugin.extract({
-        use: loaders,
-        fallback: 'style-loader',
-      });
+      return [MiniCssExtractPlugin.loader, ...loaders];
     }
     return ['style-loader'].concat(loaders);
   }
