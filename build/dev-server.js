@@ -77,7 +77,7 @@ let assets = {};
 async function updateAssets() {
   const loadedAssets = await loadAssets();
   Object.keys(loadedAssets.scripts).forEach((name) => {
-    loadedAssets.scripts[name] = loadedAssets.scripts[name].replace(new RegExp(`([/\\w]+)(${name})[\\.-\\w\\\\]*.js$`), '$1$2.js');
+    loadedAssets.scripts[name].replace(new RegExp(`([/\\w]+)(${name})[\\.-\\w\\\\]*.js$`), '$1$2.js');
   });
   assets = loadedAssets;
 }
@@ -95,6 +95,8 @@ const watcher = chokidar.watch('./assets/data/*.yml');
 watcher.on('change', updateData);
 watcher.on('add', updateData);
 watcher.on('unlink', updateData);
+
+chokidar.watch('./public/assets.json').on('change', updateAssets);
 
 app.get('/2018/*', (req, res) => {
   let url = req.path;
