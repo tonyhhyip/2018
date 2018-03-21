@@ -8,7 +8,7 @@
             </div>
         </div>
     </div>
-    <div class="container schedule">
+    <div id="schedule" class="container schedule">
         <div class="row">
             <div class="col s12">
                 <ul class="tabs z-depth-2 secondary">
@@ -26,179 +26,60 @@
                     </li>
                 </ul>
             </div>
-            <div id="day1" class="col s12" data-day="1">
-                <div class="timeslot">
-                    <div class="startTime">
-                        <span class="hours">10</span>
-                        <span class="minutes">00</span>
-                    </div>
+            {%- for day in data.timetable.days -%}
+                <div id="day{{-  day.day -}}" class="col s12" data-day="{{ day.day }}">
+                    {%- for timeslot in day.timeslots -%}
+                        <div class="timeslot">
+                            <div class="startTime">
+                                <span class="hours">{{- timeslot.startTime.slice(0, 2) -}}</span>
+                                <span class="minutes">{{- timeslot.startTime.slice(3) -}}</span>
+                            </div>
 
-                    <div class="sessions">
-                        <div class="session-wrap">
-                            <div class="session">
-                                <div class="session-card z-depth-1">
-                                    <div class="overlay">
-                                        <div class="card-content">
-                                            <span class="card-title">Opening Ceremony</span>
-                                            <p>English / Charles K Kao Auditorium</p>
-                                        </div>
-                                        <div class="tags">
-                                            <div class="tag"></div>
-                                            <span><i class="material-icons">event</i></span>
+                            <div class="sessions">
+                                {%- for event in timeslot.events  -%}
+                                <div class="session-wrap">
+                                    <div class="session">
+                                        <div class="session-card z-depth-1">
+                                            <div class="overlay">
+                                                <div class="card-content">
+                                                    <span class="card-title">{{ event.display }}</span>
+                                                    <ul class="meta">
+                                                        {%- if event.language -%}<li>{{ event.language }}</li>{%- endif -%}
+                                                        <li>{{ event.venue.name }}</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="tags">
+                                                    <div class="tag"></div>
+                                                    <span><i class="material-icons">event</i></span>
+                                                </div>
+
+
+                                                {%- if event.topic -%}
+                                                    <div class="speakers">
+                                                        <div class="speaker">
+                                                            <i class="material-icons">person</i>
+                                                            <div class="person">
+                                                                <span class="name">{{ event.speaker.name }}</span>
+                                                                <span class="title">
+                                                            {%- if event.speaker.community -%}
+                                                                {{ event.speaker.community }} / {{ " " }}
+                                                            {%- endif -%}
+                                                                    {{ event.speaker.country }}
+                                                        </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {%- endif -%}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                {%- endfor -%}
                             </div>
                         </div>
-                    </div>
+                    {%- endfor -%}
                 </div>
-
-                <div class="timeslot">
-                    <div class="startTime">
-                        <span class="hours">14</span>
-                        <span class="minutes">00</span>
-                    </div>
-
-                    <div class="sessions">
-                        <div class="session-wrap">
-                            <div class="session">
-                                <div class="session-card z-depth-1">
-                                    <div class="overlay">
-                                        <div class="card-content">
-                                            <span class="card-title">COSCUP</span>
-                                            <p>Mandarin / NTUST</p>
-                                        </div>
-                                        <div class="tags">
-                                            <div class="tag">
-                                                <i class="material-icons">local_offer</i>
-                                                <span>Worship</span>
-                                            </div>
-                                            <span>
-                                                <i class="material-icons">event</i>
-                                            </span>
-                                        </div>
-
-                                        <div class="speakers">
-                                            <div class="speaker">
-                                                <i class="material-icons">person</i>
-                                                <div class="person">
-                                                    <span class="name">Denny Huang</span>
-                                                    <span class="title">SITCON</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="session-wrap">
-                            <div class="session">
-                                <div class="session-card z-depth-1">
-                                    <div class="overlay">
-                                        <div class="card-content">
-                                            <span class="card-title">IT 9 Information</span>
-                                            <p>Brianfuck / 404 Not Found</p>
-                                        </div>
-                                        <div class="tags">
-                                            <div class="tag">
-                                                <i class="material-icons">local_offer</i>
-                                                <span>IT 9</span>
-                                            </div>
-                                            <span>
-                                                <i class="material-icons">event</i>
-                                            </span>
-                                        </div>
-
-                                        <div class="speakers">
-                                            <div class="speaker">
-                                                <i class="material-icons">person</i>
-                                                <div class="person">
-                                                    <span class="name">???</span>
-                                                    <span class="title">???</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="session-wrap">
-                            <div class="session">
-                                <div class="session-card z-depth-1">
-                                    <div class="overlay">
-                                        <div class="card-content">
-                                            <span class="card-title">The LOOP</span>
-                                            <p>Cantonese / Club 1004</p>
-                                        </div>
-                                        <div class="tags">
-                                            <div class="tag">
-                                                <i class="material-icons">local_offer</i>
-                                                <span>HKLUG</span>
-                                            </div>
-
-                                            <span>
-                                                <i class="material-icons">event</i>
-                                            </span>
-                                        </div>
-
-                                        <div class="speakers">
-                                            <div class="speaker">
-                                                <i class="material-icons">person</i>
-                                                <div class="person">
-                                                    <span class="name">Tony Yip</span>
-                                                    <span class="title">HKLUG</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="session-wrap">
-                            <div class="session">
-                                <div class="session-card z-depth-1">
-                                    <div class="overlay">
-                                        <div class="card-content">
-                                            <span class="card-title">Bonjour</span>
-                                            <ul class="meta">
-                                                <li>French</li>
-                                                <li>Rm 404</li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="tags">
-                                            <div class="tag">
-                                                <div>
-                                                    <i class="material-icons">local_offer</i>
-                                                    <span>No Kidding</span>
-                                                </div>
-                                            </div>
-                                            <span>
-                                                <i class="material-icons">event</i>
-                                            </span>
-                                        </div>
-
-                                        <div class="speakers">
-                                            <div class="speaker">
-                                                <i class="material-icons">person</i>
-                                                <div class="person">
-                                                    <span class="name">Jasmine Tea</span>
-                                                    <span class="title">HYS</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="day2" class="col s12" data-day="2">
-                Day 2
-            </div>
+            {%- endfor -%}
         </div>
     </div>
 {% endblock %}
