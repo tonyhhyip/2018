@@ -75,11 +75,7 @@ let data = {};
 let assets = {};
 
 async function updateAssets() {
-  const loadedAssets = await loadAssets();
-  Object.keys(loadedAssets.scripts).forEach((name) => {
-    loadedAssets.scripts[name].replace(new RegExp(`([/\\w]+)(${name})[\\.-\\w\\\\]*.js$`), '$1$2.js');
-  });
-  assets = loadedAssets;
+  assets = await loadAssets();
 }
 
 async function updateData() {
