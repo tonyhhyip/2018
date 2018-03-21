@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const webpack = require('webpack');
 const shell = require('shelljs');
 const glob = require('glob');
@@ -58,6 +59,7 @@ function createRenderPagePromise(env, assets, data, file) {
     const res = env.render(file.replace('assets/pages/', ''), { assets, data });
     const content = minify(res, minifyOption);
     const filepath = file.replace('jinja', 'html').replace('assets/pages', 'public');
+    shell.mkdir('-p', path.dirname(filepath));
     fs.writeFile(filepath, content, 'utf-8', (err) => {
       if (err) {
         reject(err);
@@ -79,7 +81,8 @@ async function buildPages() {
   const promises = files.map(createRenderPagePromise.bind(null, env, assets, data));
 
   return Promise.all(promises)
-    .then(() => console.log('All pages is rendered'));
+    .then(() => console.log('All pages is rendered'))
+    .catch(console.error);
 }
 
 

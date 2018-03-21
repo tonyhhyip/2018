@@ -16,7 +16,10 @@ export function match() {
 }
 
 export function add() {
-  const button = document.querySelector('[data-easter-egg=pwa] > button');
+  // All browsers support PWA would support template tag
+  const template = document.querySelector('template[data-easter-egg=pwa]');
+  const clone = document.importNode(template.content, true);
+  const button = clone.querySelector('button');
   button.parentNode.classList.add('match');
   button.addEventListener('click', (e) => {
     e.preventDefault();
@@ -26,4 +29,6 @@ export function add() {
       icon: 'success',
     });
   });
+
+  document.body.appendChild(clone);
 }
