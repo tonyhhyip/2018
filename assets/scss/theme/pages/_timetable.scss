@@ -78,6 +78,23 @@
           flex-basis: 0.000000001px;
         }
 
+        > .session-wrap.notReady {
+          > .session {
+            cursor: default;
+            > .session-card {
+              .tags span {
+                cursor: default;
+              }
+              &:hover {
+                @extend .z-depth-1;
+                .tags span {
+                  opacity: 0;
+                }
+              }
+            }
+          }
+        }
+
         > .session-wrap {
           padding: 0 8px;
           display: flex;

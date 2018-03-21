@@ -78,6 +78,9 @@ days:
         events:
           - topic: true
             display: GCC plugins and the Linux Kernel
+            tags:
+              - Linux
+              - gcc
             venue:
               name: Conference Hall 4-5
             language: English
