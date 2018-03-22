@@ -24,7 +24,6 @@ export default function createStore() {
         axios.get('/2018/data/timetable.yml')
           .then(({ data }) => yaml.safeLoad(data))
           .then((data) => {
-            console.log(data);
             commit('importDays', data.days);
             commit('setReady', true);
           });

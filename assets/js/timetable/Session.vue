@@ -8,6 +8,7 @@
                             <span class="card-title">{{ event.display }}</span>
                             <ul class="meta">
                                 <li v-if="event.language">{{ event.language }}</li>
+                                <li v-if="event.level">{{ event.level }}</li>
                                 <li>{{ event.venue.name }}</li>
                             </ul>
                         </template>

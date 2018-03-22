@@ -10,24 +10,10 @@
     </div>
     <div id="schedule" class="container">
         <div class="row">
-            <div class="col s12">
-                <ul class="tabs z-depth-2 secondary">
-                    <li class="tab col s3">
-                        <a href="#day1" class="active primary-text">Day 1</a>
-                    </li>
-                    <li class="tab col s3">
-                        <a href="#day2" class="primary-text">Day 2</a>
-                    </li>
-                    <li class="col s2 filter">
-                        <span>
-                            <i class="material-icons">filter_list</i>
-                            <span class="hide-on-med-and-down">Filter</span>
-                        </span>
-                    </li>
-                </ul>
-            </div>
+            <div class="col s12 primary secondary-text"></div>
             {%- for day in data.timetable.days -%}
                 <div id="day{{-  day.day -}}" class="col s12" data-day="{{ day.day }}">
+                    <h4>Day {{ day.day }}</h4>
                     {%- for timeslot in day.timeslots -%}
                         <div class="timeslot">
                             <div class="startTime">

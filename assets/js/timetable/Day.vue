@@ -4,6 +4,7 @@
             class="col s12"
             :data-day="day.day"
     >
+        <h4 v-if="ready">Day {{ day.day }}</h4>
         <timeslot
                 v-if="ready"
                 v-for="(timeslot, i) in day.timeslots"

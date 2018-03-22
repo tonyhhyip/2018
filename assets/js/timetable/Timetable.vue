@@ -1,10 +1,7 @@
 <template>
     <div id="schedule" class="container">
         <div class="row">
-            <tab-bar
-                    :ready="ready"
-                    :days="days"
-            />
+            <filter-bar />
             <day
                     v-if="ready"
                     v-for="day in days"
@@ -27,7 +24,7 @@
     name: 'timetable',
     computed: mapState(['days', 'ready']),
     components: {
-      TabBar: () => import('./TabBar.vue'),
+      FilterBar: () => import('./FilterBar.vue'),
       Day: () => import('./Day.vue'),
     },
     methods: mapActions(['loadFromRemote']),
