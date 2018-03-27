@@ -1,5 +1,5 @@
 <template>
-    <div class="session-wrap" :class="ready ? [''] : ['notReady']">
+    <div class="session-wrap" :class="classes">
         <div class="session">
             <div class="session-card z-depth-1">
                 <div class="overlay">
@@ -42,6 +42,43 @@
       ready: {
         type: Boolean,
         required: true,
+      },
+      filter: {
+        type: Object,
+        required: true,
+      },
+      filterActive: {
+        type: Boolean,
+        required: true,
+      },
+    },
+    computed: {
+      isActive() {
+        return this.filter.level.indexOf(this.event.level) !== -1;
+      },
+      classes() {
+        return {
+          ...this.readyClass,
+          ...this.activeClass,
+        };
+      },
+      hasFilter() {
+        return this.event.topic && this.filterActive;
+      },
+      activeClass() {
+        if (!this.ready) {
+          return {};
+        }
+        const { isActive, hasFilter } = this;
+        return {
+          active: hasFilter && isActive,
+          deactive: hasFilter && !isActive,
+        };
+      },
+      readyClass() {
+        return {
+          notReady: !this.ready,
+        };
       },
     },
   };

@@ -117,6 +117,13 @@
           }
         }
 
+        > .session-wrap.deactive {
+          filter: grayscale(80%);
+          > .session {
+            background-color: rgba(0, 0,0,0.4);
+          }
+        }
+
         > .session-wrap {
           padding: 0 8px;
           display: flex;

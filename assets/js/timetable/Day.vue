@@ -11,16 +11,21 @@
                 :key="i"
                 :timeslot="timeslot"
                 :ready="ready"
+                :filter="filter"
+                :filterActive="filterActive"
         />
         <timeslot
                 v-if="!ready"
                 :ready="ready"
+                :filter="filter"
+                :filterActive="filterActive"
         />
     </div>
 </template>
 
 <script>
   export default {
+    name: 'day',
     components: {
       Timeslot: () => import('./Timeslot.vue'),
     },
@@ -34,6 +39,14 @@
         }),
       },
       ready: {
+        type: Boolean,
+        required: true,
+      },
+      filter: {
+        type: Object,
+        required: true,
+      },
+      filterActive: {
         type: Boolean,
         required: true,
       },

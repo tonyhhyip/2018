@@ -14,6 +14,8 @@
                         :key="i"
                         :event="event"
                         :ready="ready"
+                        :filter="filter"
+                        :filterActive="filterActive"
                 />
             </template>
             <session v-if="!ready" :ready="ready" />
@@ -36,6 +38,14 @@
       timeslot: {
         type: Object,
         required: false,
+      },
+      filter: {
+        type: Object,
+        required: true,
+      },
+      filterActive: {
+        type: Boolean,
+        required: true,
       },
     },
   };

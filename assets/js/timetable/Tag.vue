@@ -6,6 +6,6 @@
             <span>{{ props.tags.join(', ') }}</span>
             </template>
         </div>
-        <span><i class="material-icons">event</i></span>
+        <!--<span><i class="material-icons">event</i></span>-->
     </div>
 </template>

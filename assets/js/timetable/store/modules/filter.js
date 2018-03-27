@@ -1,10 +1,12 @@
+const SET_LEVEL = 'SET_LEVEL';
+
 export default {
   namespaced: true,
   state: {
     level: [],
   },
   mutations: {
-    setLevel(state, level) {
+    [SET_LEVEL](state, level) {
       state.level = level;
     },
   },
@@ -15,13 +17,13 @@ export default {
   },
   actions: {
     addLevel({ commit, state }, level) {
-      commit('setLevel', [level].concat(state.level || []));
+      commit(SET_LEVEL, [level].concat(state.level || []));
     },
     removeLevel({ commit, state }, level) {
-      commit('setLevel', (state.level || []).filter(l => l !== level));
+      commit(SET_LEVEL, (state.level || []).filter(l => l !== level));
     },
     clearLevel({ commit }) {
-      commit('setLevel', []);
+      commit(SET_LEVEL, []);
     },
     toggleLevel({ dispatch, state }, level) {
       if (state.level.indexOf(level) !== -1) {

@@ -8,21 +8,28 @@
                     :key="day.day"
                     :ready="ready"
                     :day="day"
+                    :filter="filter"
+                    :filterActive="filterActive"
             />
             <day
                     v-if="!ready"
                     :ready="ready"
+                    :filter="filter"
+                    :filterActive="filterActive"
             />
         </div>
     </div>
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex';
+  import { mapState, mapActions, mapGetters } from 'vuex';
 
   export default {
     name: 'timetable',
-    computed: mapState(['days', 'ready']),
+    computed: {
+      ...mapState(['ready', 'days', 'filter']),
+      ...mapGetters(['filterActive']),
+    },
     components: {
       FilterBar: () => import('./FilterBar.vue'),
       Day: () => import('./Day.vue'),
