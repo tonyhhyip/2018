@@ -1,4 +1,6 @@
-import createApp from './app';
+import createTimetable from './table';
+import createStore from './store';
 
-const app = createApp();
-app.$mount('#schedule');
+const store = createStore();
+const timetable = createTimetable(store);
+timetable.$mount('#schedule');

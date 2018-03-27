@@ -1,9 +1,7 @@
 import Vue from 'vue';
 import Timetable from './Timetable.vue';
-import createStore from './store';
 
-export default function createApp() {
-  const store = createStore();
+export default function createTimetable(store) {
   return new Vue({
     store,
     render: h => h(Timetable),

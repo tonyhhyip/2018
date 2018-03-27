@@ -36,12 +36,12 @@
       ready: {
         type: Boolean,
         required: true,
-      }
+      },
     },
     computed: {
       id() {
         return `day${this.day.day}`;
       },
-    }
-  }
+    },
+  };
 </script>

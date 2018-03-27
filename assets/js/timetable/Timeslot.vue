@@ -36,7 +36,7 @@
       timeslot: {
         type: Object,
         required: false,
-      }
-    }
-  }
+      },
+    },
+  };
 </script>

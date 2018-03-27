@@ -31,6 +31,6 @@
       toggle() {
         this.dropdown = !this.dropdown;
       },
-    }
-  }
+    },
+  };
 </script>

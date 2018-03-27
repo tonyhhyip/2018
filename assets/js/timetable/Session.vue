@@ -42,7 +42,7 @@
       ready: {
         type: Boolean,
         required: true,
-      }
+      },
     },
-  }
+  };
 </script>

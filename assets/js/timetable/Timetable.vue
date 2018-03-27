@@ -30,6 +30,6 @@
     methods: mapActions(['loadFromRemote']),
     mounted() {
       this.loadFromRemote();
-    }
-  }
+    },
+  };
 </script>
