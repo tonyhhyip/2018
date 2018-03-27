@@ -22,7 +22,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.js|vue$/,
         loader: 'eslint-loader',
         enforce: 'pre',
         options: {
