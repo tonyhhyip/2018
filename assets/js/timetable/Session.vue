@@ -1,5 +1,5 @@
 <template>
-    <div class="session-wrap" :class="classes">
+    <div class="session-wrap" :class="classes" @click="handleClick">
         <div class="session">
             <div class="session-card z-depth-1">
                 <div class="overlay">
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex';
+
   export default {
     name: 'session',
     components: {
@@ -50,6 +52,15 @@
       filterActive: {
         type: Boolean,
         required: true,
+      },
+      startTime: {
+        type: String,
+      },
+      endTime: {
+        type: String,
+      },
+      day: {
+        type: Number,
       },
     },
     computed: {
@@ -80,6 +91,19 @@
           notReady: !this.ready,
         };
       },
+    },
+    methods: {
+      handleClick() {
+        this.openModal({
+          day: this.day,
+          startTime: this.startTime,
+          endTime: this.endTime,
+          ...this.event,
+        });
+      },
+      ...mapActions({
+        openModal: 'modal/openModal',
+      }),
     },
   };
 </script>

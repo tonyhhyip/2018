@@ -16,6 +16,9 @@
                         :ready="ready"
                         :filter="filter"
                         :filterActive="filterActive"
+                        :day="day"
+                        :startTime="timeslot.startTime"
+                        :endTime="timeslot.endTime"
                 />
             </template>
             <session v-if="!ready" :ready="ready" />
@@ -46,6 +49,9 @@
       filterActive: {
         type: Boolean,
         required: true,
+      },
+      day: {
+        type: Number,
       },
     },
   };

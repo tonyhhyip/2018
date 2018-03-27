@@ -10,7 +10,9 @@
     </div>
     <div id="schedule" class="container">
         <div class="row">
-            <div class="col s12 primary secondary-text"></div>
+            <div class="col s12 primary secondary-text">
+                <h3 class="no-js-only">Important! Javascript is required for filter and viewing session of detail. </h3>
+            </div>
             {%- for day in data.timetable.days -%}
                 <div id="day{{-  day.day -}}" class="col s12" data-day="{{ day.day }}">
                     <h4>Day {{ day.day }}</h4>
@@ -73,6 +75,7 @@
             {%- endfor -%}
         </div>
     </div>
+    <div id="modal"></div>
 {% endblock %}
 
 {%- block script -%}

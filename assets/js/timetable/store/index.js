@@ -1,11 +1,12 @@
 import Vue from 'vue';
 import Vuex, { Store } from 'vuex';
 import state from './state';
-import mutations from './mustations';
+import mutations from './mutations';
 import actions from './actions';
 import getters from './getters';
 
 import filter from './modules/filter';
+import modal from './modules/modal';
 
 Vue.use(Vuex);
 
@@ -17,6 +18,7 @@ export default function createStore() {
     actions,
     modules: {
       filter,
+      modal,
     },
   });
 }

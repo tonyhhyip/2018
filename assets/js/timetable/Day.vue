@@ -13,6 +13,7 @@
                 :ready="ready"
                 :filter="filter"
                 :filterActive="filterActive"
+                :day="day.day"
         />
         <timeslot
                 v-if="!ready"

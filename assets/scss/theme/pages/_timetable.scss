@@ -286,3 +286,65 @@
     }
   }
 }
+
+
+#modal {
+  &.show {
+    > .modal {
+      z-index: 1003;
+      display: block;
+      opacity: 1;
+      top: 10%;
+      transform: scaleX(1) scaleY(1);
+
+      .metadata {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+        > .main-info {
+          display: flex;
+          flex-direction: row;
+
+          > .info {
+            flex: 1;
+            flex-basis: 0.000000001px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            > h2 {
+              margin-bottom: 10px;
+              font-size: 24px;
+              line-height: 1.1;
+              color: #212121;
+            }
+
+            .card-content > div {
+              display: flex;
+              margin: .5rem auto;
+              > span {
+                margin-left: 1rem;
+              }
+            }
+          }
+        }
+      }
+    }
+    > .modal-overlay {
+      z-index: 1002;
+      display: block;
+      opacity: 0.5;
+    }
+  }
+
+  .modal {
+    animation-name: animatetop;
+    animation-duration: .5s;
+  }
+
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:10%; opacity:1}
+}
