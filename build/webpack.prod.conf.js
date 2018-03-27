@@ -11,10 +11,25 @@ const config = require('../config');
 
 module.exports = merge.smart(base, {
   module: {
-    rules: utils.styleLoaders({
-      sourceMap: true,
-      extract: true,
-    }),
+    rules: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          loaders: utils.cssLoaders({
+            sourceMap: true,
+            extract: true,
+          }),
+          transformToRequire: {
+            video: 'src',
+            source: 'src',
+            img: 'src',
+            image: 'xlink:href',
+          },
+        },
+      },
+      ...utils.styleLoaders({ sourceMap: true, extract: true }),
+    ],
   },
   output: {
     filename: '[name].[chunkhash].js',

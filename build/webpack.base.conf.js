@@ -3,6 +3,7 @@ const basePath = process.env.BASE_PATH || '/2018';
 module.exports = {
   entry: {
     app: ['./assets/js/app'],
+    timetable: ['./assets/js/timetable/index'],
   },
   devtool: 'source-map',
   output: {
@@ -21,7 +22,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.js|vue$/,
         loader: 'eslint-loader',
         enforce: 'pre',
         options: {

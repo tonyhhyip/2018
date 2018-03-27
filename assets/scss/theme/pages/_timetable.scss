@@ -1,0 +1,350 @@
+#schedule {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  &.container {
+    width: 90%;
+  }
+
+  [data-usage=filter] {
+    transition: .5s height;
+    z-index: 2;
+
+    > .filter-bar {
+      min-height: 50px;
+      padding: 1rem 0;
+      i.material-icons {
+        font-size: 14px;
+      }
+      button {
+        cursor: pointer;
+        border: none;
+        background: inherit;
+      }
+    }
+
+    > .filter-items {
+      padding: 2rem;
+      transition: all .5s;
+      background-color: white;
+      &.hide {
+        max-height: 0;
+      }
+      > .filter-type ul {
+        margin: 8px 0 0;
+        padding: 0;
+        font-size: 15px;
+        > li {
+          display: inline-block;
+          height: 32px;
+          font-size: 13px;
+          font-weight: 500;
+          color: rgba(0,0,0,0.6);
+          line-height: 32px;
+          padding: 0 12px;
+          border-radius: 16px;
+          background-color: #e4e4e4;
+          margin-bottom: 5px;
+          margin-right: 5px;
+          cursor: pointer;
+          &:first-of-type {
+            margin-left: 0;
+          }
+
+          &:hover {
+            background-color: lighten($secondary-color, 10%);
+          }
+
+          &.active {
+            @extend .z-depth-1;
+            background-color: $secondary-color;
+            border-radius: 0;
+          }
+        }
+      }
+    }
+  }
+
+  [data-day] {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    .timeslot {
+      display: flex;
+      flex-direction: row;
+      margin-top: 40px;
+
+      > .startTime {
+        padding-left: 24px;
+        min-width: 110px;
+        color: rgba(0, 0, 0, .6);
+
+        > .hours {
+          font-size: 3rem;
+          font-weight: 300;
+          letter-spacing: -0.04em;
+        }
+
+        > .minutes {
+          margin-left: 3px;
+          font-size: 16px;
+        }
+      }
+
+      .sessions {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        @media only screen and (min-width: 993px) {
+          flex-direction: row;
+          flex: 1;
+          flex-basis: 0.000000001px;
+        }
+
+        > .session-wrap.notReady {
+          > .session {
+            cursor: default;
+            > .session-card {
+              .tags span {
+                cursor: default;
+              }
+              &:hover {
+                @extend .z-depth-1;
+                .tags span {
+                  opacity: 0;
+                }
+              }
+            }
+          }
+        }
+
+        > .session-wrap.deactive {
+          filter: grayscale(80%);
+          > .session {
+            background-color: rgba(0, 0,0,0.4);
+          }
+        }
+
+        > .session-wrap {
+          padding: 0 8px;
+          display: flex;
+          flex-direction: column;
+          @media only screen and (min-width: 993px) {
+            flex: 1;
+            flex-basis: 0.000000001px;
+          }
+          flex: 1 1 auto;
+
+          > .session {
+            flex: 1 1 auto;
+            display: flex;
+            cursor: pointer;
+            flex-direction: column;
+
+            > .session-card {
+              width: 100%;
+              flex: 1 1 auto;
+              display: flex;
+
+              &:hover {
+                @extend .z-depth-4;
+              }
+
+              .overlay {
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                width: 100%;
+              }
+              .card-content {
+                padding: 24px;
+                flex-basis: auto;
+
+                > .card-title {
+                  font-size: 20px;
+                  font-weight: 400;
+                  line-height: 22px;
+                }
+
+                > .meta {
+                  margin: 8px 0 0;
+                  padding: 0;
+                  font-size: 15px;
+                  color: #727272;
+                  > li {
+                    display: inline-block;
+
+                    &:not(:last-of-type)::after {
+                      margin-left: 5px;
+                      margin-right: 5px;
+                      content: "/";
+                    }
+                  }
+                }
+              }
+
+              .tags {
+                align-items: center;
+                display: flex;
+                flex-direction: row;
+                flex-grow: 1;
+
+                position: relative;
+                font-size: 13px;
+                color: #727272;
+
+                > .tag {
+                  margin-right: 24px;
+                  padding: 16px 24px;
+                  flex: 1;
+                  flex-basis: 0.000000001px;
+                  div {
+                    align-items: center;
+                    display: flex;
+                    flex-direction: row;
+                  }
+                  i.material-icons {
+                    margin-right: 8px;
+                    font-size: 13px;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    vertical-align: middle;
+                    fill: currentcolor;
+                    stroke: none;
+                    width: 14px;
+                    height: 14px;
+                  }
+                }
+
+                > span {
+                  cursor: pointer;
+                  margin-left: 16px;
+                  padding: 16px 24px;
+                  position: absolute;
+                  right: 0;
+                  bottom: 0;
+                  display: inline-flex;
+                  opacity: 0;
+                  transition: .2s opacity;
+                }
+              }
+
+              &:hover .tags > span {
+                opacity: 1;
+
+                &:hover {
+                  > i.material-icons {
+                    color: $primary-color;
+                  }
+                }
+              }
+
+              .speakers {
+                @extend .primary;
+                @extend .secondary-text;
+
+                display: flex;
+                flex-direction: row;
+                padding: 12px 24px;
+                position: relative;
+                flex-wrap: wrap;
+
+                > .speaker {
+                  align-items: center;
+                  display: flex;
+                  flex-direction: row;
+                  margin: 4px 0;
+
+                  > i.material-icons {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    vertical-align: middle;
+                    fill: currentcolor;
+                    stroke: none;
+                    width: 24px;
+                    height: 24px;
+                  }
+
+                  > .person {
+                    margin-left: 7px;
+                    line-height: 1;
+                    z-index: 1;
+                    flex: 1;
+                    flex-basis: 0.000000001px;
+                    flex-direction: column;
+                    display: flex;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+#modal {
+  &.show {
+    > .modal {
+      z-index: 1003;
+      display: block;
+      opacity: 1;
+      top: 10%;
+      transform: scaleX(1) scaleY(1);
+
+      .metadata {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+        > .main-info {
+          display: flex;
+          flex-direction: row;
+
+          > .info {
+            flex: 1;
+            flex-basis: 0.000000001px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            > h2 {
+              margin-bottom: 10px;
+              font-size: 24px;
+              line-height: 1.1;
+              color: #212121;
+            }
+
+            .card-content > div {
+              display: flex;
+              margin: .5rem auto;
+              > span {
+                margin-left: 1rem;
+              }
+            }
+          }
+        }
+      }
+    }
+    > .modal-overlay {
+      z-index: 1002;
+      display: block;
+      opacity: 0.5;
+    }
+  }
+
+  .modal {
+    animation-name: animatetop;
+    animation-duration: .5s;
+  }
+
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:10%; opacity:1}
+}

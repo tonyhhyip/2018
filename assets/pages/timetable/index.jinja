@@ -1,0 +1,85 @@
+{% extends "default.jinja" %}
+
+{% block content %}
+    <div class="theme-area">
+        <div class="content">
+            <div class="container">
+                <h1>Schedule</h1>
+            </div>
+        </div>
+    </div>
+    <div id="schedule" class="container">
+        <div class="row">
+            <div class="col s12 primary secondary-text">
+                <h3 class="no-js-only">Important! Javascript is required for filter and viewing session of detail. </h3>
+            </div>
+            {%- for day in data.timetable.days -%}
+                <div id="day{{-  day.day -}}" class="col s12" data-day="{{ day.day }}">
+                    <h4>Day {{ day.day }}</h4>
+                    {%- for timeslot in day.timeslots -%}
+                        <div class="timeslot">
+                            <div class="startTime">
+                                <span class="hours">{{- timeslot.startTime.slice(0, 2) -}}</span>
+                                <span class="minutes">{{- timeslot.startTime.slice(3) -}}</span>
+                            </div>
+
+                            <div class="sessions">
+                                {%- for event in timeslot.events  -%}
+                                <div class="session-wrap">
+                                    <div class="session">
+                                        <div class="session-card z-depth-1">
+                                            <div class="overlay">
+                                                <div class="card-content">
+                                                    <span class="card-title">{{ event.display }}</span>
+                                                    <ul class="meta">
+                                                        {%- if event.language -%}<li>{{ event.language }}</li>{%- endif -%}
+                                                        <li>{{ event.venue.name }}</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="tags">
+                                                    <div class="tag">
+                                                        {%- if event.tags and event.tags.length > 0 -%}
+                                                        <i class="material-icons">local_offer</i>
+                                                        <span>{{ event.tags | join(', ') }}</span>
+                                                        {%- endif -%}
+                                                    </div>
+                                                    <span><i class="material-icons">event</i></span>
+                                                </div>
+
+
+                                                {%- if event.topic -%}
+                                                    <div class="speakers">
+                                                        <div class="speaker">
+                                                            <i class="material-icons">person</i>
+                                                            <div class="person">
+                                                                <span class="name">{{ event.speaker.name }}</span>
+                                                                <span class="title">
+                                                            {%- if event.speaker.community -%}
+                                                                {{ event.speaker.community }} / {{ " " }}
+                                                            {%- endif -%}
+                                                                    {{ event.speaker.country }}
+                                                        </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {%- endif -%}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {%- endfor -%}
+                            </div>
+                        </div>
+                    {%- endfor -%}
+                </div>
+            {%- endfor -%}
+        </div>
+    </div>
+    <div id="modal"></div>
+{% endblock %}
+
+{%- block script -%}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.1.1/webcomponents-loader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.1.1/custom-elements-es5-adapter.js"></script>
+    <script src="{{ assets.scripts.timetable }}"></script>
+{%- endblock -%}
