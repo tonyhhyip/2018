@@ -8,6 +8,8 @@
     }]
   ],
   "plugins": [
-    "syntax-dynamic-import"
+    "syntax-dynamic-import",
+    "syntax-object-rest-spread",
+    "transform-object-rest-spread"
   ]
 }

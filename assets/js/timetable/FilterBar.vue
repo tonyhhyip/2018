@@ -10,9 +10,14 @@
             <div class="filter-type">
                 <h5>Difficult</h5>
                 <ul>
-                    <li>Beginner</li>
-                    <li>Intermediate</li>
-                    <li>Advance</li>
+                    <li
+                            v-for="level in levels"
+                            :key="level"
+                            :class="activeLevels.indexOf(level) !== -1 ? 'active': ''"
+                            @click="() => toggleLevel(level)"
+                    >
+                        {{ level }}
+                    </li>
                 </ul>
             </div>
         </div>
@@ -20,17 +25,28 @@
 </template>
 
 <script>
+  import { createNamespacedHelpers } from 'vuex';
+
+  const { mapActions, mapState } = createNamespacedHelpers('filter');
+
   export default {
     name: 'filter-bar',
     data() {
       return {
         dropdown: false,
+        levels: ['Beginner', 'Intermediate', 'Advance'],
       };
     },
+    computed: mapState({
+      activeLevels: 'level',
+    }),
     methods: {
       toggle() {
         this.dropdown = !this.dropdown;
       },
+      ...mapActions({
+        toggleLevel: 'toggleLevel',
+      }),
     },
   };
 </script>
