@@ -11,7 +11,7 @@
     "syntax-dynamic-import",
     "syntax-object-rest-spread",
     "transform-object-rest-spread",
-    "plugin-transform-runtime"
+    "transform-runtime"
   ],
   "env": {
     "production": {

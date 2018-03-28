@@ -30,7 +30,11 @@ module.exports = {
           formatter: require('eslint-friendly-formatter'),
         },
       },
-      { test: /\.jsx?$/, use: ['babel-loader'] },
+      {
+        test: /\.jsx?$/,
+        use: ['babel-loader'],
+        exclude: /node_modules/,
+      },
       {
         test: /\.(png|jpe?g|gif)$/,
         loader: 'url-loader',
