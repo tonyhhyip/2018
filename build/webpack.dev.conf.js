@@ -11,9 +11,28 @@ const config = require('../config');
 module.exports = merge.smart(baseConfig, {
   entry: {
     app: ['./build/dev-client.js'],
+    timetable: ['./build/dev-client.js'],
   },
   module: {
-    rules: utils.styleLoaders({ sourceMap: true }),
+    rules: [
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          loaders: utils.cssLoaders({
+            sourceMap: true,
+            extract: false,
+          }),
+          transformToRequire: {
+            video: 'src',
+            source: 'src',
+            img: 'src',
+            image: 'xlink:href',
+          },
+        },
+      },
+      ...utils.styleLoaders({ sourceMap: true }),
+    ],
   },
   plugins: [
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage

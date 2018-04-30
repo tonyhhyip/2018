@@ -1,6 +1,6 @@
 {% extends "default.jinja" %}
 
-{% block content %}
+{%- block content -%}
     <div id="fb-root"></div>
     <div id="banner" class="page-home">
         <div class="banner-content">
@@ -10,7 +10,9 @@
             <div class="actions">
                 <ul>
                     <li>
-                        <a class="btn" href="{{ data.site.basePath }}/cfp.html">Apply for Call for Paper</a>
+                        <a class="btn"
+                            target="_blank"
+                            href="https://www.eventbrite.com/e/hong-kong-open-source-conference-2018-tickets-44667134602">Register Now</a>
                     </li>
                 </ul>
             </div>
@@ -42,20 +44,20 @@
                         <div class="title-wrapper">
                             <div class="title">
                                 <div class="label">
-                                    <span class="day-name">Day 1</span><span class="day-date"><span class="day">2</span>th Jun, Day 1 (Tentative)</span>
+                                    <span class="day-date"><span class="day">16</span>th Jun, Sat</span>
                                 </div>
+                                <h3>Day 1</h3>
                             </div>
                         </div>
                         <div class="content">
-                            <p class="slogan">Up your game. Keep your gear kicking.</p>
-                            <p>
-                                Adopt open source solutions to make yourself become more successful.
-                                Refresh the learning journey with open culture.
-                            </p>
+                            <p class="slogan">Begin somewhere. Listen.</p>
+                            <p>Three track Talks.</p>
                             <ul>
-                                <li>Keynotes</li>
-                                <li>Talks</li>
-                                <li>Booths</li>
+                                <li>Main Track and Open Source</li>
+                                <li>Blockchain</li>
+                                <li>Haxe</li>
+                                <li>R</li>
+                                <li>Panel Discussion</li>
                             </ul>
                         </div>
                     </div>
@@ -63,20 +65,27 @@
                     <div class="day-details day-2">
                         <div class="title-wrapper"><div class="title">
                                 <div class="label">
-                                    <span class="day-name">Day 2</span><span class="day-date"><span class="day">10</span>th Jun, Day 2 (Tentative)</span>
+                                    <span class="day-date"><span class="day">17</span>th Jun, Sun</span>
                                 </div>
+                                <h3>Day 2</h3>
                             </div></div>
                         <div class="content">
-                            <p class="slogan">Join the community.</p>
-                            <p>Embrace open source technology and culture.</p>
+                            <p class="slogan">Carry on. Hands on.</p>
+                            <p>Talks, Workshops, Unconference.</p>
                             <ul>
-                                <li>Keynotes</li>
-                                <li>Talks</li>
-                                <li>Booths</li>
+                                <li>Linux</li>
+                                <li>MySQL</li>
+                                <li>Life &amp; Hacks</li>
+                                <li>Mozilla</li>
+                                <li>OpenResty</li>
+                                <li>Workshops</li>
+                                <li>Lightening Talk</li>
                             </ul>
                         </div>
                     </div>
                 </div>
+                <div class="row center-align"><a class="btn black-text" target="_blank"
+                    href="https://docs.google.com/spreadsheets/d/1U4qNao1q4hktwg72W3BuQE5y2yYoopgDhCcIkFcDSbY">Full Schedule</a></div>
             </div>
         </div>
     </div>
@@ -117,9 +126,9 @@
             </div>
         </div>
     </div>
-{% endblock %}
+{%- endblock -%}
 
-{% block script %}
+{%- block script -%}
     <script>(function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
@@ -128,4 +137,4 @@
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));</script>
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-{% endblock %}
+{%- endblock -%}

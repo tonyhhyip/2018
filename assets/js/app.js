@@ -13,4 +13,4 @@ $('.button-collapse').sideNav();
 $('.collapsible').collapsible();
 $('.collapsible a.collapsible-header').click((e) => { e.preventDefault(); });
 $('.scrollspy').scrollSpy();
-
+$('ul.tabs').tabs();
