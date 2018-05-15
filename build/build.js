@@ -1,6 +1,7 @@
 const fs = require('fs');
 const webpack = require('webpack');
 const shell = require('shelljs');
+const path = require('path');
 const glob = require('glob');
 const { Environment, FileSystemLoader } = require('nunjucks');
 const { minify } = require('html-minifier');
@@ -58,6 +59,15 @@ function createRenderPagePromise(env, assets, data, file) {
     const res = env.render(file.replace('assets/pages/', ''), { assets, data });
     const content = minify(res, minifyOption);
     const filepath = file.replace('jinja', 'html').replace('assets/pages', 'public');
+    if (!fs.existsSync(filepath)) {
+      const dirpath = path.dirname(filepath);
+      if (!fs.existsSync(dirpath)) {
+        fs.mkdirSync(dirpath);
+      }
+      if (!fs.lstatSync(dirpath).isDirectory()) {
+        throw new Error(`path is not a directory: ${dirpath}`);
+      }
+    }
     fs.writeFile(filepath, content, 'utf-8', (err) => {
       if (err) {
         reject(err);
