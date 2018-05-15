@@ -17,7 +17,7 @@
 
                     <tag :tags="event.tags" />
 
-                    <speaker v-if="event.topic" :speaker="event.speaker" />
+                    <speakers v-if="event.topic" :speakers="event.speakers" />
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
     name: 'session',
     components: {
       LinearLoader: () => import('./LinearLoader.vue'),
-      Speaker: () => import('./Speaker.vue'),
+      Speakers: () => import('./Speakers.vue'),
       Tag: () => import('./Tag.vue'),
     },
     props: {

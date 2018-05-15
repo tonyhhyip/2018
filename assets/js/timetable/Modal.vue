@@ -6,7 +6,7 @@
                     <div class="main-info">
                         <div class="info">
                             <h2>{{ event.display }}</h2>
-                            <div class="card">
+                            <div class="card event-card">
                                 <div class="card-content">
                                     <p v-if="event.detail">{{ event.detail }}</p>
                                     <div>
@@ -29,9 +29,15 @@
                                         <i class="material-icons">network_check</i>
                                         <span>{{ event.level }}</span>
                                     </div>
-                                    <div v-if="event.topic && event.speaker">
-                                        <i class="material-icons">account_circle</i>
-                                        <span>{{ event.speaker.name }}</span>
+                                </div>
+                            </div>
+                            <div class="card person-card">
+                                <div class="card-content">
+                                    <div v-if="event.topic && event.speakers" class="speakers">
+                                        <div v-for="(speaker, index) in event.speakers" :key="index" class="speaker">
+                                            <i class="material-icons">account_circle</i>
+                                            <span>{{ speaker.name }}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
