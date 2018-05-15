@@ -1,4 +1,5 @@
 const fs = require('fs');
+const axios = require('axios');
 const webpack = require('webpack');
 const shell = require('shelljs');
 const path = require('path');
@@ -12,26 +13,53 @@ process.env.NODE_ENV = 'production';
 
 const assetsPath = './public';
 
-function buildAssets() {
-  return new Promise((resolve, reject) => {
-    shell.rm('-rf', assetsPath);
-    shell.mkdir('-p', assetsPath);
-    shell.config.silent = true;
+function buildAssets(apiURL) {
+  // prepare assets directory
+  shell.rm('-rf', assetsPath);
+  shell.mkdir('-p', assetsPath);
+  shell.config.silent = true;
 
-    webpack(config, (err, stats) => {
-      if (err) {
-        reject(err);
-      } else {
-        console.log(stats.toString({
-          modules: true,
-          children: true,
-          chunks: true,
-          chunkModules: true,
-        }));
-        resolve();
-      }
-    });
-  });
+  const promises = [
+    new Promise((resolve, reject) => {
+      webpack(config, (err, stats) => {
+        if (err) {
+          reject(err);
+        } else {
+          console.log(stats.toString({
+            modules: true,
+            children: true,
+            chunks: true,
+            chunkModules: true,
+          }));
+          resolve();
+        }
+      });
+    }),
+    new Promise((resolve, reject) => {
+      axios(apiURL)
+        .then((response) => {
+          if (!fs.existsSync('public/data')) {
+            fs.mkdirSync('public/data');
+          }
+          fs.writeFile(
+            'public/data/timetable.json',
+            JSON.stringify(response.data),
+            (error) => {
+              if (error === null) {
+                resolve();
+                return;
+              }
+              reject(error);
+            },
+          );
+        })
+        .catch(error => reject(error));
+    }),
+  ];
+
+  return Promise.all(promises)
+    .then(() => console.log('All assets are rendered.'))
+    .catch(error => console.error(error));
 }
 
 function getPageFiles() {
@@ -78,22 +106,23 @@ function createRenderPagePromise(env, assets, data, file) {
   });
 }
 
-async function buildPages() {
+async function buildPages(apiURL) {
   const layoutsLoader = new FileSystemLoader('assets/layouts');
   const pagesLoader = new FileSystemLoader('assets/pages');
   const env = new Environment([pagesLoader, layoutsLoader]);
 
   const files = await getPageFiles();
-  const data = await loadData();
+  const data = await loadData(apiURL);
   const assets = await loadAssets();
   const promises = files.map(createRenderPagePromise.bind(null, env, assets, data));
 
   return Promise.all(promises)
-    .then(() => console.log('All pages is rendered'));
+    .then(() => console.log('All pages is rendered'))
+    .catch(error => console.error(error));
 }
 
-
 (async () => {
-  await buildAssets();
-  await buildPages();
+  const apiURL = 'https://hkoscon.ddns.net/api/v1/days/HKOSCon%202018';
+  await buildAssets(apiURL);
+  await buildPages(apiURL);
 })();
