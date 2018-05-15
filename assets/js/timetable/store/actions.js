@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default {
   loadFromRemote({ commit }) {
-    axios.get('/2018/data/timetable.json')
+    axios.get(process.env.TIMETABLE_API_URL)
       .then(({ data }) => {
         commit('importDays', data.days);
         commit('setReady', true);
