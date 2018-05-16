@@ -1,4 +1,5 @@
 const fs = require('fs');
+const axios = require('axios');
 const path = require('path');
 const glob = require('glob');
 const yaml = require('js-yaml');
@@ -17,7 +18,7 @@ function globData() {
   });
 }
 
-async function loadData() {
+async function loadData(apiURL) {
   const files = await globData();
   const promises = files.map(file => new Promise((resolve, reject) => {
     fs.readFile(file, 'utf-8', (err, data) => {
@@ -31,7 +32,16 @@ async function loadData() {
       }
     });
   }));
-
+  promises.push(new Promise((resolve, reject) => {
+    axios.get(apiURL)
+      .then((response) => {
+        resolve({
+          key: 'timetable',
+          value: response.data,
+        });
+      })
+      .catch(error => reject(error));
+  }));
   return Promise.all(promises)
     .then(pairs => pairs.reduce((obj, pair) => {
       obj[pair.key] = pair.value;

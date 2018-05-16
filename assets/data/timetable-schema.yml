@@ -24,10 +24,13 @@ days:
               name: Charles K Kao Auditorium
             language: English
             level: Beginner
-            speaker:
-              name: foo
-              community: bar
-              country: United Nation
+            speakers:
+              - name: foo
+                community: bar
+                country: United Nation
+              - name: hello
+                community: bar 2
+                country: United Nation
       - startTime: '11:05'
         endTime: '11:35'
         events:
@@ -37,10 +40,10 @@ days:
               name: Charles K Kao Auditorium
             language: English
             level: Beginner
-            speaker:
-              name: foo
-              community: bar
-              country: United Nation
+            speakers:
+              - name: foo
+                community: bar
+                country: United Nation
       - startTime: '11:40'
         endTime: '12:10'
         events:
@@ -50,10 +53,10 @@ days:
               name: Charles K Kao Auditorium
             language: English
             level: Beginner
-            speaker:
-              name: foo
-              community: bar
-              country: United Nation
+            speakers:
+              - name: foo
+                community: bar
+                country: United Nation
       - startTime: '12:15'
         endTime: '12:45'
         events:
@@ -63,10 +66,10 @@ days:
               name: Charles K Kao Auditorium
             language: English
             level: Beginner
-            speaker:
-              name: foo
-              community: bar
-              country: United Nation
+            speakers:
+              - name: foo
+                community: bar
+                country: United Nation
       - startTime: '12:45'
         endTime: '14:00'
         events:
@@ -85,17 +88,18 @@ days:
               name: Conference Hall 4-5
             language: English
             level: Intermediate
-            speaker:
-              name: Vaishali Thakkar
-              country: India
+            speakers:
+              - name: foo
+                community: bar
+                country: United Nation
           - topic: true
             display: LikeCoin Blockchain
             venue:
               name: Conference Hall 6
             language: Cantonese
             level: Beginner
-            speaker:
-              name: Ko Kin
-              community: LikeCoin
-              country: Hong Kong
+            speakers:
+              - name: foo
+                community: bar
+                country: United Nation
   - day: 2
