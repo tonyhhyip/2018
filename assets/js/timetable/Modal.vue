@@ -31,9 +31,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card person-card">
+                            <div v-if="event.topic && event.speakers && event.speakers.length > 0" class="card person-card">
                                 <div class="card-content">
-                                    <div v-if="event.topic && event.speakers" class="speakers">
+                                    <div class="speakers">
                                         <div v-for="(speaker, index) in event.speakers" :key="index" class="speaker">
                                             <i class="material-icons">account_circle</i>
                                             <span>{{ speaker.name }}</span>

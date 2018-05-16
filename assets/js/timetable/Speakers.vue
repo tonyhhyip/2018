@@ -1,5 +1,5 @@
 <template functional>
-    <div class="speakers">
+    <div v-if="props.speakers.length > 0" class="speakers">
         <div v-for="(speaker, index) in props.speakers" :key="index" class="speaker">
             <i class="material-icons">person</i>
             <div class="person">
