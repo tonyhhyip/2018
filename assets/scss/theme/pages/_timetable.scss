@@ -81,15 +81,27 @@
         min-width: 110px;
         color: rgba(0, 0, 0, .6);
 
-        > .hours {
+        .hours {
           font-size: 3rem;
           font-weight: 300;
           letter-spacing: -0.04em;
         }
-
-        > .minutes {
+        .minutes {
+          font-size: 1.5rem;
           margin-left: 3px;
-          font-size: 16px;
+        }
+
+        @media screen and (max-width: 933px) {
+          padding-left: 0;
+          min-width: 60px;
+
+          .hours {
+            font-size: 1.6rem;
+            letter-spacing: -0.02em;
+          }
+          .minutes {
+            font-size: 1rem;
+          }
         }
       }
 
@@ -136,6 +148,9 @@
             flex: 1;
             flex-basis: 0.000000001px;
           }
+          @media only screen and (max-width: 993px) {
+            margin-bottom: 1em;
+          }
           flex: 1 1 auto;
 
           > .session {
@@ -164,9 +179,9 @@
                 flex-basis: auto;
 
                 > .card-title {
-                  font-size: 20px;
+                  font-size: 1.3em;
+                  line-height: 1.8em;
                   font-weight: 400;
-                  line-height: 22px;
                 }
 
                 > .meta {
@@ -249,37 +264,54 @@
                 @extend .secondary-text;
 
                 display: flex;
-                flex-direction: row;
-                padding: 12px 24px;
-                position: relative;
-                flex-wrap: wrap;
+                flex-direction: column;
 
-                > .speaker {
+                .speaker {
                   align-items: center;
                   display: flex;
-                  flex-direction: row;
                   margin: 4px 0;
+                  flex-direction: row;
+                  align-items: stretch;
 
-                  > i.material-icons {
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
-                    position: relative;
-                    vertical-align: middle;
-                    fill: currentcolor;
-                    stroke: none;
-                    width: 24px;
-                    height: 24px;
+                  .thumbnail {
+                    padding: 0.5rem 1rem;
+                    i.material-icons {
+                      display: inline-flex;
+                      align-items: center;
+                      justify-content: center;
+                      position: relative;
+                      vertical-align: middle;
+                      fill: currentcolor;
+                      stroke: none;
+                      font-size: 3rem;
+                      width: 3rem;
+                      height: 3rem;
+                    }
+                    img {
+                      width: 3rem;
+                      height: auto;
+                      border-radius: 50%;
+                    }
                   }
-
-                  > .person {
-                    margin-left: 7px;
+                  .person {
                     line-height: 1;
                     z-index: 1;
                     flex: 1;
-                    flex-basis: 0.000000001px;
                     flex-direction: column;
-                    display: flex;
+                    padding: 0.5em 0;
+                    > span {
+                      display: block;
+                      padding: 0.2em 0.2em 0.2em 0;
+                    }
+                    .name {
+                      display: block;
+                      flex: 1;
+                      font-weight: bold;
+                    }
+                    .title {
+                      display: block;
+                      flex: 1;
+                    }
                   }
                 }
               }
@@ -301,6 +333,50 @@
       top: 10%;
       transform: scaleX(1) scaleY(1);
 
+      .header {
+        display: flex;
+        margin-bottom: 10px;
+        h2 {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          font-size: 1.7rem;
+          line-height: 2.2rem;
+          color: #212121;
+          flex: 1;
+        }
+        .speaker-thumbnails {
+          padding-left: 1rem;
+          ul {
+            margin: 0;
+            list-style-type: none;
+          }
+          .speaker-thumbnail {
+            display: inline-block;
+            .material-icons {
+              font-size: 4em;
+            }
+            img {
+              width: 4em;
+              height: auto;
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+
+      .summary {
+        font-size: 1.2rem;
+        line-height: 2rem;
+        .material-icons {
+          font-size: 1em;
+          line-height: 2rem;
+        }
+        .misc > span {
+          margin-right: 1em;
+        }
+      }
+
       .metadata {
         display: flex;
         flex-direction: column;
@@ -315,13 +391,6 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-
-            h2 {
-              margin-bottom: 10px;
-              font-size: 1.7rem;
-              line-height: 2.2rem;
-              color: #212121;
-            }
 
             .event-card .card-content > div {
               display: flex;
