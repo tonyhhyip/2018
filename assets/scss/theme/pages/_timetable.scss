@@ -290,7 +290,7 @@
 
 #modal {
   &.show {
-    > .modal {
+    .modal {
       z-index: 1003;
       display: block;
       opacity: 1;
@@ -301,36 +301,117 @@
         display: flex;
         flex-direction: column;
         margin-bottom: 10px;
-        > .main-info {
+        .main-info {
           display: flex;
           flex-direction: row;
 
-          > .info {
+          .info {
             flex: 1;
             flex-basis: 0.000000001px;
             display: flex;
             flex-direction: column;
             justify-content: center;
 
-            > h2 {
+            h2 {
               margin-bottom: 10px;
-              font-size: 24px;
-              line-height: 1.1;
+              font-size: 1.7rem;
+              line-height: 2.2rem;
               color: #212121;
             }
 
-            .card-content > div {
+            .event-card .card-content > div {
               display: flex;
               margin: .5rem auto;
-              > span {
+              span {
                 margin-left: 1rem;
+              }
+            }
+
+            .person-card .card-content {
+              > .speakers {
+                display: block;
+                .speaker {
+                  display: flex;
+                  .thumbnail {
+                    max-width: 120px;
+                    flex: 1;
+                    flex-direction: column;
+                    padding: 1em 0 0;
+                    text-align: center;
+                    padding-right: 12px;
+                    .material-icons {
+                      font-size: 120px;
+                    }
+                    img {
+                      width: 100% !important;
+                      height: auto !important;
+                      border-radius: 50%;
+                    }
+                  }
+                  .details {
+                    flex: 5;
+                    display: flex;
+                    flex-direction: column;
+                    padding-left: 12px;
+
+                    > div {
+                      flex: 1;
+                      display: flex;
+                      flex-direction: column;
+                      justify-content: center;
+                    }
+                    .name {
+                      font-size: 1.2rem;
+                    }
+                    .description {
+                      flex: 2;
+                      padding: 1em 0 0.7em;
+                    }
+                    .affiliations {
+                      ul {
+                        list-style-type: none;
+                        li {
+                          display: inline-block;
+                          &:after {
+                            display: inline-block;
+                            content: "/";
+                            margin: 0 0.5em;
+                          }
+                        }
+                        li:last-child {
+                          &:after {
+                            display: none;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+
+                // fix smaller screen displays (e.g. iPhone SE)
+                @media screen and (max-width: 400px) {
+                  .speaker {
+                    display: block;
+                    .thumbnail {
+                      padding: 0 0 1em;
+                      max-width: 100%;
+                      .material-icons {
+                        display: none;
+                      }
+                    }
+                    .details {
+                      padding: 0;
+                    }
+                  }
+                }
+
               }
             }
           }
         }
       }
     }
-    > .modal-overlay {
+    .modal-overlay {
       z-index: 1002;
       display: block;
       opacity: 0.5;

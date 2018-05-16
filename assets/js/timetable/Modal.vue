@@ -1,11 +1,16 @@
 <template>
     <div id="modal" :class="{ show: open }">
-        <div class="modal modal-fixed-footer">
+        <div class="modal modal-fixed-footer modal-event-details">
             <div class="modal-content">
                 <div class="metadata">
                     <div class="main-info">
                         <div class="info">
                             <h2>{{ event.display }}</h2>
+                            <div
+                                class="description"
+                                v-if="event.description"
+                                v-html="event.description"
+                            ></div>
                             <div class="card event-card">
                                 <div class="card-content">
                                     <p v-if="event.detail">{{ event.detail }}</p>
@@ -35,8 +40,29 @@
                                 <div class="card-content">
                                     <div class="speakers">
                                         <div v-for="(speaker, index) in event.speakers" :key="index" class="speaker">
-                                            <i class="material-icons">account_circle</i>
-                                            <span>{{ speaker.name }}</span>
+                                            <div class="thumbnail">
+                                                <i v-if="!speaker.thumbnail" class="material-icons">account_circle</i>
+                                                <img v-if="speaker.thumbnail" :src="speaker.thumbnail" />
+                                            </div>
+                                            <div class="details">
+                                                <div class="name">
+                                                    <span>{{ speaker.name }}</span>
+                                                </div>
+                                                <div
+                                                    class="description"
+                                                    v-if="speaker.description && speaker.description != ''"
+                                                    v-html="speaker.description"
+                                                ></div>
+                                                <div
+                                                    class="affiliations"
+                                                    v-if="speaker.community || speaker.country"
+                                                >
+                                                    <ul>
+                                                        <li v-if="speaker.community">{{ speaker.community }}</li>
+                                                        <li v-if="speaker.country">{{ speaker.country }}</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
