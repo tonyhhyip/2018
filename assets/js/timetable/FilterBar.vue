@@ -8,15 +8,15 @@
         </div>
         <div class="filter-items z-depth-1" :class="dropdown ? 'show' : 'hide'">
             <div class="filter-type">
-                <h5>Difficult</h5>
+                <h5>Difficulty</h5>
                 <ul>
                     <li
-                            v-for="level in levels"
-                            :key="level"
-                            :class="activeLevels.indexOf(level) !== -1 ? 'active': ''"
-                            @click="() => toggleLevel(level)"
+                      v-for="level in levels"
+                      :key="level"
+                      :class="activeLevels.indexOf(level) !== -1 ? 'active': ''"
+                      @click="() => toggleLevel(level)"
                     >
-                        {{ level }}
+                      {{ level }}
                     </li>
                 </ul>
             </div>
@@ -34,7 +34,7 @@
     data() {
       return {
         dropdown: false,
-        levels: ['Beginner', 'Intermediate', 'Advance'],
+        levels: ['Open to All', 'Beginner', 'Intermediate', 'Advance'],
       };
     },
     computed: mapState({

@@ -49,18 +49,20 @@
 
                                                 {%- if event.topic -%}
                                                     <div class="speakers">
-                                                        <div class="speaker">
-                                                            <i class="material-icons">person</i>
-                                                            <div class="person">
-                                                                <span class="name">{{ event.speaker.name }}</span>
-                                                                <span class="title">
-                                                            {%- if event.speaker.community -%}
-                                                                {{ event.speaker.community }} / {{ " " }}
-                                                            {%- endif -%}
-                                                                    {{ event.speaker.country }}
-                                                        </span>
+                                                        {% for speaker in event.speakers %}
+                                                            <div class="speaker">
+                                                                <i class="material-icons">person</i>
+                                                                    <div class="person">
+                                                                    <span class="name">{{ speaker.name }}</span>
+                                                                    <span class="title">
+                                                                        {%- if speaker.community -%}
+                                                                            {{ speaker.community }} / {{ " " }}
+                                                                        {%- endif -%}
+                                                                        {{ speaker.country }}
+                                                                    </span>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        {% endfor %}
                                                     </div>
                                                 {%- endif -%}
                                             </div>
