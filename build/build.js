@@ -42,7 +42,6 @@ function buildAssets(apiURL) {
           if (!fs.existsSync('public/data')) {
             fs.mkdirSync('public/data');
           }
-          console.dir(transformTopics(response.data));
 
           fs.writeFile(
             'public/data/timetable.json',
@@ -109,6 +108,22 @@ function createRenderPagePromise(env, assets, data, file) {
   });
 }
 
+function createDetailPagePromise(env, { assets, data }, { id, topic }) {
+  return new Promise((resolve, reject) => {
+    const res = env.render('topic.jinja', { assets, data, topic });
+    const content = minify(res, minifyOption);
+    const filepath = path.join('public', 'topic', id, 'index.html');
+    shell.mkdir('-p', path.dirname(filepath));
+    fs.writeFile(filepath, content, 'utf-8', (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
 async function buildPages(apiURL) {
   const layoutsLoader = new FileSystemLoader('assets/layouts');
   const pagesLoader = new FileSystemLoader('assets/pages');
@@ -118,6 +133,11 @@ async function buildPages(apiURL) {
   const data = await loadData(apiURL);
   const assets = await loadAssets();
   const promises = files.map(createRenderPagePromise.bind(null, env, assets, data));
+  const topics = transformTopics(data.timetable);
+  // eslint-disable-next-line no-restricted-syntax
+  for (const [id, topic] of topics) {
+    promises.push(createDetailPagePromise(env, { assets, data }, { id, topic }));
+  }
 
   return Promise.all(promises)
     .then(() => console.log('All pages is rendered'))

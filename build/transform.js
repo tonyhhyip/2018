@@ -1,7 +1,7 @@
 const { URL } = require('url');
 const path = require('path');
 
-module.exports = function ({ timetable }) {
+module.exports = function (timetable) {
   const map = new Map();
   timetable.days.forEach(({ day, date, timeslots }) => {
     timeslots.forEach(({ startTime, endTime, events }) => {
