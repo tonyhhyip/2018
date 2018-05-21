@@ -475,6 +475,15 @@
           }
         }
       }
+
+      .share {
+        button.facebook {
+          background-color: #3B5998;
+        }
+        button.twitter {
+          background-color: #1DA1F2;
+        }
+      }
     }
     .modal-overlay {
       z-index: 1002;
