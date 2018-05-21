@@ -8,3 +8,12 @@ timetable.$mount('#schedule');
 
 const modal = createModal(store);
 modal.$mount('#modal');
+/* globals window, FB */
+window.fbAsyncInit = function () {
+  FB.init({
+    appId: process.env.FB_APP_ID,
+    autoLogAppEvents: true,
+    xfbml: true,
+    version: 'v3.0',
+  });
+};
