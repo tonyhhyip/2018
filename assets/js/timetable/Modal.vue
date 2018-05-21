@@ -79,6 +79,7 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <a class="modal-action waves-effect waves-light btn" :href="link" target="_blank" rel="noopener">Permlink</a>
                 <button class="modal-action waves-effect waves-light btn" @click="closeModal">Close</button>
             </div>
         </div>
@@ -89,12 +90,22 @@
 <script>
   import { createNamespacedHelpers } from 'vuex';
 
-  /* globals window */
+  /* globals window, URL */
   const { mapState, mapActions } = createNamespacedHelpers('modal');
 
   export default {
     name: 'modal',
-    computed: mapState(['open', 'event']),
+    computed: {
+      link() {
+        if (!this.event.internal) {
+          return '';
+        }
+
+        const url = new URL(this.event.internal);
+        return url.pathname.replace('/event/', '/2018/topic/');
+      },
+      ...mapState(['open', 'event']),
+    },
     methods: mapActions(['closeModal']),
     mounted() {
       window.addEventListener('keyup', (e) => {
