@@ -8,6 +8,7 @@ const { Environment, FileSystemLoader } = require('nunjucks');
 const { minify } = require('html-minifier');
 const config = require('./webpack.prod.conf');
 const { loadData, loadAssets } = require('./parameter');
+const transformTopics = require('./transform');
 
 process.env.NODE_ENV = 'production';
 
@@ -41,6 +42,8 @@ function buildAssets(apiURL) {
           if (!fs.existsSync('public/data')) {
             fs.mkdirSync('public/data');
           }
+          console.dir(transformTopics(response.data));
+
           fs.writeFile(
             'public/data/timetable.json',
             JSON.stringify(response.data),
