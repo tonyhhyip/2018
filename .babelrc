@@ -10,6 +10,20 @@
   "plugins": [
     "syntax-dynamic-import",
     "syntax-object-rest-spread",
-    "transform-object-rest-spread"
-  ]
+    "transform-object-rest-spread",
+    "transform-runtime"
+  ],
+  "env": {
+    "production": {
+      "presets": [
+        ["env", {
+          "targets": {
+            "browsers": ["Chrome > 42", "Firefox > 44"],
+            "uglify": true
+          },
+          "modules": false
+        }]
+      ]
+    }
+  }
 }
