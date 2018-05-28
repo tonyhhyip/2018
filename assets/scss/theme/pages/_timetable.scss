@@ -477,6 +477,8 @@
       }
 
       .share {
+        display: inline-block;
+        float: left;
         button.facebook {
           background-color: #3B5998;
         }

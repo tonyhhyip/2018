@@ -39,9 +39,9 @@
                                 </div>
                             </div>
                             <div
-                                class="description"
-                                v-if="event.description"
-                                v-html="event.description"
+                                    class="description"
+                                    v-if="event.description"
+                                    v-html="event.description"
                             ></div>
                             <div v-if="event.topic && event.speakers && event.speakers.length > 0" class="card person-card">
                                 <div class="card-content">
@@ -56,13 +56,13 @@
                                                     <span>{{ speaker.name }}</span>
                                                 </div>
                                                 <div
-                                                    class="description"
-                                                    v-if="speaker.description && speaker.description != ''"
-                                                    v-html="speaker.description"
+                                                        class="description"
+                                                        v-if="speaker.description && speaker.description != ''"
+                                                        v-html="speaker.description"
                                                 ></div>
                                                 <div
-                                                    class="affiliations"
-                                                    v-if="speaker.community || speaker.country"
+                                                        class="affiliations"
+                                                        v-if="speaker.community || speaker.country"
                                                 >
                                                     <ul>
                                                         <li v-if="speaker.community">{{ speaker.community }}</li>
@@ -77,6 +77,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="modal-footer">
                 <div class="share">
                     <button @click="openFacebook" class="btn-floating btn-large waves-effect waves-light facebook">
                         <i class="fa fa-facebook" aria-hidden="true"></i>
@@ -92,10 +94,10 @@
                         <i class="material-icons">share</i>
                     </button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <a class="modal-action waves-effect waves-light btn" :href="link" target="_blank" rel="noopener">Permlink</a>
-                <button class="modal-action waves-effect waves-light btn" @click="closeModal">Close</button>
+                <div class="actions">
+                    <a class="modal-action waves-effect waves-light btn" :href="link" target="_blank" rel="noopener">Permlink</a>
+                    <button class="modal-action waves-effect waves-light btn" @click="closeModal">Close</button>
+                </div>
             </div>
         </div>
         <div class="modal-overlay" @click="closeModal"></div>
