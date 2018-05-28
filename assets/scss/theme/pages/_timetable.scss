@@ -476,14 +476,17 @@
         }
       }
 
-      .share {
-        display: inline-block;
-        float: left;
-        button.facebook {
-          background-color: #3B5998;
-        }
-        button.twitter {
-          background-color: #1DA1F2;
+      .modal-footer {
+        height: 72px;
+        > .share {
+          display: inline-block;
+          float: left;
+          button.facebook {
+            background-color: #3B5998;
+          }
+          button.twitter {
+            background-color: #1DA1F2;
+          }
         }
       }
     }
