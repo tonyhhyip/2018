@@ -15,7 +15,7 @@
           <p>We would like to thank the following sponsors for their support.</p>
           <div class="sponsor-types">
             {% for key, tier in data.general.conference.sponsors %}
-              <div class="sponsor-type">
+              <div class="sponsor-type sponsor-{{ key }}">
                 <h2>{{ tier.name }} Sponsor</h2>
                 <div class="sponsor-type-sponsors">
                   {% for sponsor in tier.sponsors %}
@@ -24,6 +24,17 @@
                 </div>
               </div>
             {% endfor %}
+
+            {% if data.general.conference.patrons | length > 0 %}
+              <div class="sponsor-type sponsor-patron">
+                <h2>Patrons</h2>
+                <ul class="patrons">
+                {% for patron in data.general.conference.patrons %}
+                  <li>{{ patron }}</li>
+                {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
           </div> <!-- sponsor-types -->
       </div> <!-- content -->
     </div> <!-- container -->
