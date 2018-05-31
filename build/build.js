@@ -40,7 +40,6 @@ function buildAssets(apiURLs) {
   // map API call data to build assets
   for (let key in apiURLs) {
     promises.push(new Promise((resolve, reject) => {
-	  console.log(`grabbing ${key}: ${apiURLs[key]} save to public/data/${key}.json`);
       axios(apiURLs[key])
         .then((response) => {
           fs.writeFile(
@@ -88,6 +87,11 @@ function createRenderPagePromise(env, assets, data, file) {
   return new Promise((resolve, reject) => {
     const res = env.render(file.replace('assets/pages/', ''), { assets, data });
     const content = minify(res, minifyOption);
+    if (path.basename(file).startsWith('_')) {
+      // if the filename starts with underscore, do not render it.
+      resolve();
+      return;
+    }
     const filepath = file.replace('jinja', 'html').replace('assets/pages', 'public');
     if (!fs.existsSync(filepath)) {
       const dirpath = path.dirname(filepath);
