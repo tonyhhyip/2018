@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="{{ assets.styles.app }}">
     {%- endif -%}
 </head>
-<body data-network="online">
+<body data-network="online" class="{% if page_id %}page--{{ page_id }}{% endif %}">
 {%- include "navbar.jinja" -%}
 <main>{%- block content -%}{%- endblock -%}</main>
 {%- include "footer.jinja" -%}
