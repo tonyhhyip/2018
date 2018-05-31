@@ -7,6 +7,7 @@
     height: auto;
     position:fixed;
     bottom:0;
+    z-index: 2;
   }
   @extend .z-depth-2;
 
