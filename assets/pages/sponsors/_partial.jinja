@@ -1,11 +1,18 @@
 <div class="sponsor row">
   <div class="col m3 logos">
     <span class="logo">
-      <img class="responsive-img" src="{{sponsor.logo}}">
+      <a href="{{sponsor.links[0].url}}"
+        target="_blank"><img class="responsive-img" src="{{sponsor.logo}}"></a>
     </span>
   </div>
   <div class="col m9 description">
     <h3>{{sponsor.title}}</h3>
-    <div>{{ sponsor.description | safe }}</div>
+    <div class="description-text">{{ sponsor.description | safe }}</div>
+    <div class="links">
+      <a class="waves-effect waves-light btn" target="_blank"
+          href="{{sponsor.links[0].url}}" role="button">
+          {{sponsor.links[0].title}}
+      </a>
+    </div>
   </div>
 </div>
