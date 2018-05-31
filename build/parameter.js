@@ -18,7 +18,7 @@ function globData() {
   });
 }
 
-async function loadData(apiURL) {
+async function loadData(apiURLs) {
   const files = await globData();
   const promises = files.map(file => new Promise((resolve, reject) => {
     fs.readFile(file, 'utf-8', (err, data) => {
@@ -32,16 +32,21 @@ async function loadData(apiURL) {
       }
     });
   }));
-  promises.push(new Promise((resolve, reject) => {
-    axios.get(apiURL)
-      .then((response) => {
-        resolve({
-          key: 'timetable',
-          value: response.data,
-        });
-      })
-      .catch(error => reject(error));
-  }));
+
+  // further information from API calls
+  for (let key in apiURLs) {
+    promises.push(new Promise((resolve, reject) => {
+      axios.get(apiURLs[key])
+        .then((response) => {
+          resolve({
+            key: key,
+            value: response.data,
+          });
+        })
+        .catch(error => reject(error));
+    }));
+  }
+
   return Promise.all(promises)
     .then(pairs => pairs.reduce((obj, pair) => {
       obj[pair.key] = pair.value;

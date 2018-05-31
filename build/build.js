@@ -13,10 +13,10 @@ process.env.NODE_ENV = 'production';
 
 const assetsPath = './public';
 
-function buildAssets(apiURL) {
+function buildAssets(apiURLs) {
   // prepare assets directory
   shell.rm('-rf', assetsPath);
-  shell.mkdir('-p', assetsPath);
+  shell.mkdir('-p', `${assetsPath}/data`);
   shell.config.silent = true;
 
   const promises = [
@@ -35,14 +35,16 @@ function buildAssets(apiURL) {
         }
       });
     }),
-    new Promise((resolve, reject) => {
-      axios(apiURL)
+  ];
+
+  // map API call data to build assets
+  for (let key in apiURLs) {
+    promises.push(new Promise((resolve, reject) => {
+	  console.log(`grabbing ${key}: ${apiURLs[key]} save to public/data/${key}.json`);
+      axios(apiURLs[key])
         .then((response) => {
-          if (!fs.existsSync('public/data')) {
-            fs.mkdirSync('public/data');
-          }
           fs.writeFile(
-            'public/data/timetable.json',
+            `public/data/${key}.json`,
             JSON.stringify(response.data),
             (error) => {
               if (error === null) {
@@ -54,8 +56,8 @@ function buildAssets(apiURL) {
           );
         })
         .catch(error => reject(error));
-    }),
-  ];
+    }));
+  };
 
   return Promise.all(promises)
     .then(() => console.log('All assets are rendered.'))
@@ -106,13 +108,14 @@ function createRenderPagePromise(env, assets, data, file) {
   });
 }
 
-async function buildPages(apiURL) {
+async function buildPages(apiURLs) {
   const layoutsLoader = new FileSystemLoader('assets/layouts');
   const pagesLoader = new FileSystemLoader('assets/pages');
   const env = new Environment([pagesLoader, layoutsLoader]);
 
   const files = await getPageFiles();
-  const data = await loadData(apiURL);
+  const data = await loadData(apiURLs);
+
   const assets = await loadAssets();
   const promises = files.map(createRenderPagePromise.bind(null, env, assets, data));
 
@@ -122,7 +125,10 @@ async function buildPages(apiURL) {
 }
 
 (async () => {
-  const apiURL = 'https://hkoscon.ddns.net/api/v1/days/HKOSCon%202018';
-  await buildAssets(apiURL);
-  await buildPages(apiURL);
+  const apiURLs = {
+    timetable: 'https://hkoscon.ddns.net/api/v1/days/HKOSCon%202018',
+    general: 'https://hkoscon.ddns.net/api/v1/info/HKOSCon%202018',
+  }
+  await buildAssets(apiURLs);
+  await buildPages(apiURLs);
 })();
