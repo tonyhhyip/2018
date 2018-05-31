@@ -1,0 +1,30 @@
+{% set page_id = "sponsors" %}
+{% extends "default.jinja" %}
+
+{% block content %}
+    <div class="theme-area">
+        <div class="content">
+            <div class="container">
+                <h1>Sponsors</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="content">
+          <p>To cover expenses of conference, we are calling for sponsorships of HKOSCon 2018 and look for potential sponsors.</p>
+          <p>We would like to thank the following sponsors for their support.</p>
+          <div class="sponsor-types">
+            {% for key, tier in data.general.conference.sponsors %}
+              <div class="sponsor-type">
+                <h2>{{ tier.name }} Sponsor</h2>
+                <div class="sponsor-type-sponsors">
+                  {% for sponsor in tier.sponsors %}
+                    {% include "sponsors/_partial.jinja" %}
+                  {% endfor %}
+                </div>
+              </div>
+            {% endfor %}
+          </div> <!-- sponsor-types -->
+      </div> <!-- content -->
+    </div> <!-- container -->
+{% endblock %}
