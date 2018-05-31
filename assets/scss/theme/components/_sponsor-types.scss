@@ -1,0 +1,39 @@
+.sponsor-types {
+  .sponsor-type {
+    margin-bottom: 2em;
+    h2 {
+      margin: 1.5em 0 1em;
+    } 
+    .btn {
+      color: #000;
+    }
+    .sponsor-type-sponsors {
+      .sponsor {
+        margin-left: auto;
+        margin-right: auto;
+        background-color: rgba(255,255,255,.9);
+        @extend .z-depth-2;
+        padding: 1.5em 0.5em 1.5em;
+        margin-bottom: 1em;
+        .logo {
+          display: block;
+        }
+        h3 {
+          font-size: 1.6em;
+          line-height: 100%;
+          color: #000;
+          margin: 0 0 1em;
+        }
+        a.company-link {
+            font-weight: bolder;
+            color: #4a7b99;
+        }
+        @media #{$small-and-down} {
+          h3 {
+            margin: 1.5em 0 1em;
+          }
+        }  
+      }
+    }
+  }
+}
