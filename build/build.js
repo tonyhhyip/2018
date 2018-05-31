@@ -38,9 +38,10 @@ function buildAssets(apiURLs) {
   ];
 
   // map API call data to build assets
-  for (let key in apiURLs) {
-    promises.push(new Promise((resolve, reject) => {
-      axios(apiURLs[key])
+  promises.push(...Object.keys(apiURLs).map((key) => {
+    const apiURL = apiURLs[key];
+    return new Promise((resolve, reject) => {
+      axios(apiURL)
         .then((response) => {
           fs.writeFile(
             `public/data/${key}.json`,
@@ -55,8 +56,8 @@ function buildAssets(apiURLs) {
           );
         })
         .catch(error => reject(error));
-    }));
-  };
+    });
+  }));
 
   return Promise.all(promises)
     .then(() => console.log('All assets are rendered.'))
@@ -132,7 +133,7 @@ async function buildPages(apiURLs) {
   const apiURLs = {
     timetable: 'https://hkoscon.ddns.net/api/v1/days/HKOSCon%202018',
     general: 'https://hkoscon.ddns.net/api/v1/info/HKOSCon%202018',
-  }
+  };
   await buildAssets(apiURLs);
   await buildPages(apiURLs);
 })();

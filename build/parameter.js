@@ -34,18 +34,19 @@ async function loadData(apiURLs) {
   }));
 
   // further information from API calls
-  for (let key in apiURLs) {
-    promises.push(new Promise((resolve, reject) => {
-      axios.get(apiURLs[key])
+  promises.push(...Object.keys(apiURLs).map((key) => {
+    const apiURL = apiURLs[key];
+    return new Promise((resolve, reject) => {
+      axios.get(apiURL)
         .then((response) => {
           resolve({
-            key: key,
+            key,
             value: response.data,
           });
         })
         .catch(error => reject(error));
-    }));
-  }
+    });
+  }));
 
   return Promise.all(promises)
     .then(pairs => pairs.reduce((obj, pair) => {
