@@ -46,29 +46,16 @@
   }
 
   .speaker {
-    .card-image {
-      @media #{$small-and-down} {
-        max-height: 250px;
-      }
-      @media #{$medium-and-down} {
-        max-height: 300px;
-      }
+    @extend .z-depth-2;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 1em;
+    padding: 1.5em 0.5em;
 
-      @media #{$large-and-up} {
-        max-height: 500px;
-      }
-
-      overflow-y: hidden;
-      > img {
-        margin-top: -10%;
-        vertical-align: bottom;
-        width: 100%;
-      }
-
-      > span.card-title {
-        color: $secondary-color;
-        font-weight: 500;
-      }
+    img {
+      width: 100%;
+      border-radius: 50%;
     }
 
     h5 {

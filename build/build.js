@@ -14,7 +14,7 @@ process.env.NODE_ENV = 'production';
 
 const assetsPath = './public';
 
-function buildAssets(apiURL) {
+function buildAssets(apiURLs) {
   // prepare assets directory
   shell.rm('-rf', assetsPath);
   shell.mkdir('-p', assetsPath);
