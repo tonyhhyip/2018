@@ -81,7 +81,10 @@ async function updateAssets() {
 }
 
 async function updateData() {
-  data = await loadData('https://hkoscon.ddns.net/api/v1/days/HKOSCon%202018');
+  data = await loadData({
+    timetable: 'https://hkoscon.ddns.net/api/v1/days/HKOSCon%202018',
+    general: 'https://hkoscon.ddns.net/api/v1/info/HKOSCon%202018',
+  });
   topics = transformTopic(data.timetable);
 }
 

@@ -36,7 +36,12 @@ function buildAssets(apiURL) {
         }
       });
     }),
-    new Promise((resolve, reject) => {
+  ];
+
+  // map API call data to build assets
+  promises.push(...Object.keys(apiURLs).map((key) => {
+    const apiURL = apiURLs[key];
+    return new Promise((resolve, reject) => {
       axios(apiURL)
         .then((response) => {
           if (!fs.existsSync('public/data')) {
@@ -44,7 +49,7 @@ function buildAssets(apiURL) {
           }
 
           fs.writeFile(
-            'public/data/timetable.json',
+            `public/data/${key}.json`,
             JSON.stringify(response.data),
             (error) => {
               if (error === null) {
@@ -56,8 +61,8 @@ function buildAssets(apiURL) {
           );
         })
         .catch(error => reject(error));
-    }),
-  ];
+    });
+  }));
 
   return Promise.all(promises)
     .then(() => console.log('All assets are rendered.'))
@@ -88,6 +93,11 @@ function createRenderPagePromise(env, assets, data, file) {
   return new Promise((resolve, reject) => {
     const res = env.render(file.replace('assets/pages/', ''), { assets, data });
     const content = minify(res, minifyOption);
+    if (path.basename(file).startsWith('_')) {
+      // if the filename starts with underscore, do not render it.
+      resolve();
+      return;
+    }
     const filepath = file.replace('jinja', 'html').replace('assets/pages', 'public');
     if (!fs.existsSync(filepath)) {
       const dirpath = path.dirname(filepath);
@@ -124,13 +134,14 @@ function createDetailPagePromise(env, { assets, data }, { id, topic }) {
   });
 }
 
-async function buildPages(apiURL) {
+async function buildPages(apiURLs) {
   const layoutsLoader = new FileSystemLoader('assets/layouts');
   const pagesLoader = new FileSystemLoader('assets/pages');
   const env = new Environment([pagesLoader, layoutsLoader]);
 
   const files = await getPageFiles();
-  const data = await loadData(apiURL);
+  const data = await loadData(apiURLs);
+
   const assets = await loadAssets();
   const promises = files.map(createRenderPagePromise.bind(null, env, assets, data));
   const topics = transformTopics(data.timetable);
@@ -145,7 +156,10 @@ async function buildPages(apiURL) {
 }
 
 (async () => {
-  const apiURL = 'https://hkoscon.ddns.net/api/v1/days/HKOSCon%202018';
-  await buildAssets(apiURL);
-  await buildPages(apiURL);
+  const apiURLs = {
+    timetable: 'https://hkoscon.ddns.net/api/v1/days/HKOSCon%202018',
+    general: 'https://hkoscon.ddns.net/api/v1/info/HKOSCon%202018',
+  };
+  await buildAssets(apiURLs);
+  await buildPages(apiURLs);
 })();
