@@ -168,7 +168,12 @@ async function buildPages(apiURLs, baseURL, fbAppID) {
   const topics = transformTopics(data.timetable);
   // eslint-disable-next-line no-restricted-syntax
   for (const [id, topic] of topics) {
-    promises.push(createDetailPagePromise(env, { assets, data, baseURL, fbAppID }, { id, topic }));
+    promises.push(createDetailPagePromise(env, {
+      assets,
+      data,
+      baseURL,
+      fbAppID,
+    }, { id, topic }));
   }
 
   return Promise.all(promises)
