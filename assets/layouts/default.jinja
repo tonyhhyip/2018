@@ -15,6 +15,7 @@
     <meta property="og:description" content="{% if page_desc %}{{ page_desc | striptags | truncate(150) }}{% else %}{{ page_desc_default }}{% endif %}">
     <meta property="og:image" content="{% if page_feature_image %}{{ page_feature_image }}{% else %}{{ keyvisual }}{% endif %}">
     {% if pageURL %}<meta property="og:url" content="{{ pageURL }}">{% endif %}
+    {% if fbAppID %}<meta property="fb:app_id" content="{{ fbAppID }}">{% endif %}
     <title>{% if title %}{{ title }} | {{ site_name }}{% else %}{{ site_name }}{% endif %}</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700|Material+Icons" rel="stylesheet">
     <meta name="theme-color" content="#294454">

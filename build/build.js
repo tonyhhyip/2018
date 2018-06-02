@@ -89,7 +89,7 @@ const minifyOption = {
   html5: true,
 };
 
-function createRenderPagePromise(env, assets, data, baseURL, file) {
+function createRenderPagePromise(env, assets, data, baseURL, fbAppID, file) {
   return new Promise((resolve, reject) => {
     if (path.basename(file).startsWith('_')) {
       // if the filename starts with underscore, do not render it.
@@ -107,6 +107,7 @@ function createRenderPagePromise(env, assets, data, baseURL, file) {
       assets,
       data,
       pageURL,
+      fbAppID,
     });
     const content = minify(res, minifyOption);
     if (!fs.existsSync(filepath)) {
@@ -128,7 +129,9 @@ function createRenderPagePromise(env, assets, data, baseURL, file) {
   });
 }
 
-function createDetailPagePromise(env, { assets, data, baseURL }, { id, topic }) {
+function createDetailPagePromise(env, {
+  assets, data, baseURL, fbAppID,
+}, { id, topic }) {
   return new Promise((resolve, reject) => {
     const pageURL = `${baseURL}/topic/${id}/`;
     const res = env.render('topic.jinja', {
@@ -136,6 +139,7 @@ function createDetailPagePromise(env, { assets, data, baseURL }, { id, topic }) 
       data,
       topic,
       pageURL,
+      fbAppID,
     });
     const content = minify(res, minifyOption);
     const filepath = path.join('public', 'topic', id, 'index.html');
@@ -150,7 +154,7 @@ function createDetailPagePromise(env, { assets, data, baseURL }, { id, topic }) 
   });
 }
 
-async function buildPages(apiURLs, baseURL) {
+async function buildPages(apiURLs, baseURL, fbAppID) {
   const layoutsLoader = new FileSystemLoader('assets/layouts');
   const pagesLoader = new FileSystemLoader('assets/pages');
   const env = new Environment([pagesLoader, layoutsLoader]);
@@ -159,11 +163,12 @@ async function buildPages(apiURLs, baseURL) {
   const data = await loadData(apiURLs);
 
   const assets = await loadAssets();
-  const promises = files.map(createRenderPagePromise.bind(null, env, assets, data, baseURL));
+  const createRenderPage = createRenderPagePromise.bind(null, env, assets, data, baseURL, fbAppID);
+  const promises = files.map(createRenderPage);
   const topics = transformTopics(data.timetable);
   // eslint-disable-next-line no-restricted-syntax
   for (const [id, topic] of topics) {
-    promises.push(createDetailPagePromise(env, { assets, data, baseURL }, { id, topic }));
+    promises.push(createDetailPagePromise(env, { assets, data, baseURL, fbAppID }, { id, topic }));
   }
 
   return Promise.all(promises)
@@ -177,5 +182,9 @@ async function buildPages(apiURLs, baseURL) {
     general: 'https://data.hkoscon.org/api/v1/info/HKOSCon%202018',
   };
   await buildAssets(apiURLs);
-  await buildPages(apiURLs, 'https://hkoscon.org/2018');
+  await buildPages(
+    apiURLs,
+    'https://hkoscon.org/2018',
+    process.env.FB_APP_ID || '',
+  );
 })();
