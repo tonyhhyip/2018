@@ -11,7 +11,7 @@
     <meta name="author" content="{{ site_name }}">
     <meta property="og:site_name" content="{{ site_name }}">
     <meta property="og:type" content="{% if page_type %}{{ page_type }}{% else %}website{% endif %}">
-    <meta property="og:title" content="{% if page_title %}{{ page_title }} | {{ site_name }}{% else %}{{ site_name }}{% endif %}">
+    <meta property="og:title" content="{% if page_title %}{{ page_title }}{% else %}{{ site_name }}{% endif %}">
     <meta property="og:description" content="{% if page_desc %}{{ page_desc | striptags | truncate(150) }}{% else %}{{ page_desc_default }}{% endif %}">
     <meta property="og:image" content="{% if page_feature_image %}{{ page_feature_image }}{% else %}{{ keyvisual }}{% endif %}">
     <title>{% if title %}{{ title }} | {{ site_name }}{% else %}{{ site_name }}{% endif %}</title>
