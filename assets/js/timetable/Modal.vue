@@ -39,9 +39,9 @@
                                 </div>
                             </div>
                             <div
-                                class="description"
-                                v-if="event.description"
-                                v-html="event.description"
+                                    class="description"
+                                    v-if="event.description"
+                                    v-html="event.description"
                             ></div>
                             <div v-if="event.topic && event.speakers && event.speakers.length > 0" class="card person-card">
                                 <div class="card-content">
@@ -56,13 +56,13 @@
                                                     <span>{{ speaker.name }}</span>
                                                 </div>
                                                 <div
-                                                    class="description"
-                                                    v-if="speaker.description && speaker.description != ''"
-                                                    v-html="speaker.description"
+                                                        class="description"
+                                                        v-if="speaker.description && speaker.description != ''"
+                                                        v-html="speaker.description"
                                                 ></div>
                                                 <div
-                                                    class="affiliations"
-                                                    v-if="speaker.community || speaker.country"
+                                                        class="affiliations"
+                                                        v-if="speaker.community || speaker.country"
                                                 >
                                                     <ul>
                                                         <li v-if="speaker.community">{{ speaker.community }}</li>
@@ -79,7 +79,25 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="modal-action waves-effect waves-light btn" @click="closeModal">Close</button>
+                <div class="share">
+                    <button @click="openFacebook" class="btn-floating btn-large waves-effect waves-light facebook">
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                    </button>
+                    <button @click="openTwitter" class="btn-floating btn-large waves-effect waves-light twitter">
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                    </button>
+                    <button
+                            class="btn-floating btn-large waves-effect waves-light primary"
+                            ref="share"
+                            :data-clipboard-text="`${this.shareLink}&utm_source=clipboard`"
+                    >
+                        <i class="material-icons">share</i>
+                    </button>
+                </div>
+                <div class="actions">
+                    <a class="modal-action waves-effect waves-light btn" :href="link" target="_blank" rel="noopener">Permlink</a>
+                    <button class="modal-action waves-effect waves-light btn" @click="closeModal">Close</button>
+                </div>
             </div>
         </div>
         <div class="modal-overlay" @click="closeModal"></div>
@@ -89,16 +107,59 @@
 <script>
   import { createNamespacedHelpers } from 'vuex';
 
-  /* globals window */
+  /* globals window, URL, URLSearchParams, FB, ClipboardJS, Materialize */
   const { mapState, mapActions } = createNamespacedHelpers('modal');
+
+  const frameOptions = 'toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=200,width=800,height=400';
 
   export default {
     name: 'modal',
-    computed: mapState(['open', 'event']),
-    methods: mapActions(['closeModal']),
+    computed: {
+      link() {
+        if (!this.event.internal) {
+          return '';
+        }
+
+        const url = new URL(this.event.internal);
+        return url.pathname.replace('/event/', '/2018/topic/');
+      },
+      shareLink() {
+        return `${window.location.protocol}//${window.location.host}${this.link}?utm_medium=share&utm_campaign=website_share`;
+      },
+      ...mapState(['open', 'event']),
+    },
+    methods: {
+      openFacebook() {
+        FB.ui({
+          app_id: '1826257884309248',
+          method: 'share',
+          mobile_iframe: true,
+          href: `${this.shareLink}&utm_source=facebook`,
+        });
+      },
+      openTwitter() {
+        const params = new URLSearchParams();
+        params.append('url', `${this.shareLink}&utm_source=twitter`);
+        params.append('via', 'hkoscon');
+        params.append('hashtags', 'hkoscon,hkoscon2018');
+        const speaker = this.event.speakers.map(s => s.name).join(' and ');
+        params.append('text', `${speaker} in going to deliver "${this.event.display}" in HKOSCon 2018`);
+        window.open(`https://twitter.com/share?${params.toString()}`, '_blank', frameOptions);
+      },
+      ...mapActions(['closeModal']),
+    },
     mounted() {
+      // eslint-disable-next-line no-new
+      const clipboard = new ClipboardJS(this.$refs.share);
+      clipboard.on('success', (e) => {
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        Materialize.toast('Link is Copied', 3000, 'rounded');
+        e.clearSelection();
+      });
       window.addEventListener('keyup', (e) => {
-        if (this.open && e.keyCode === 27) {
+        if (this.open && e.code === 'Escape') {
           this.closeModal();
         }
       });

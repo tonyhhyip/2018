@@ -1,0 +1,62 @@
+{% extends "default.jinja" %}
+
+{% block content %}
+  <div class="container topic">
+    <div class="row">
+      <div class="col s12">
+        <h3>{{ topic.display }}</h3>
+        <div class="meta-list">
+          <div class="meta" data-info="datetime">
+            <i class="material-icons">event</i>
+            <span>{{ topic.date }} (Day {{ topic.day }}) ~ {{ topic.startTime }} - {{ topic.endTime }}</span>
+          </div>
+          <div class="meta" data-info="venue">
+            <i class="material-icons">explore</i>
+            <span>{{ topic.venue.name }}</span>
+          </div>
+          <div class="meta hide-on-large-only" data-info="language">
+            <i class="material-icons">comment</i>
+            <span>{{ topic.language }}</span>
+          </div>
+          <div class="meta hide-on-large-only" data-info="level">
+            <i class="material-icons">network_check</i>
+            <span>{{ topic.level }}</span>
+          </div>
+
+          <div class="meta hide-on-med-and-down" data-info="language">
+            <div>
+              <i class="material-icons">comment</i>
+              <span>{{ topic.language }}</span>
+            </div>
+            <div>
+              <i class="material-icons">network_check</i>
+              <span>{{ topic.level }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% if topic.description.length > 0 %}
+      <hr>
+      <div class="row">
+        <div class="col s12">
+          <h4>Abstract</h4>
+          {{ topic.description | safe }}
+        </div>
+      </div>
+    {% endif %}
+    {% for speaker in topic.speakers %}
+      <hr>
+      <div class="row speaker">
+          <div class="col m3">
+            <img src="{{ speaker.thumbnail }}" alt="{{ speaker.name }}">
+          </div>
+          <div class="col m9">
+            <h4>{{ speaker.name }}</h4>
+            <h5>{{ speaker.community }} / {{ speaker.country }}</h5>
+            {{ speaker.description | safe }}
+          </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

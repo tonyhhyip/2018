@@ -21,7 +21,7 @@
                         :endTime="timeslot.endTime"
                 />
             </template>
-            <session v-if="!ready" :ready="ready" />
+            <session v-if="!ready" :ready="ready" :filter="filter" />
         </div>
     </div>
 </template>
