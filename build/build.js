@@ -157,8 +157,8 @@ async function buildPages(apiURLs) {
 
 (async () => {
   const apiURLs = {
-    timetable: 'https://hkoscon.ddns.net/api/v1/days/HKOSCon%202018',
-    general: 'https://hkoscon.ddns.net/api/v1/info/HKOSCon%202018',
+    timetable: 'https://data.hkoscon.org/api/v1/days/HKOSCon%202018',
+    general: 'https://data.hkoscon.org/api/v1/info/HKOSCon%202018',
   };
   await buildAssets(apiURLs);
   await buildPages(apiURLs);
