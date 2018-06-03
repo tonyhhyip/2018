@@ -8,6 +8,7 @@ const { Environment, FileSystemLoader } = require('nunjucks');
 const { minify } = require('html-minifier');
 const config = require('./webpack.prod.conf');
 const { loadData, loadAssets } = require('./parameter');
+const transformTopics = require('./transform');
 
 process.env.NODE_ENV = 'production';
 
@@ -16,7 +17,7 @@ const assetsPath = './public';
 function buildAssets(apiURLs) {
   // prepare assets directory
   shell.rm('-rf', assetsPath);
-  shell.mkdir('-p', `${assetsPath}/data`);
+  shell.mkdir('-p', assetsPath);
   shell.config.silent = true;
 
   const promises = [
@@ -43,6 +44,10 @@ function buildAssets(apiURLs) {
     return new Promise((resolve, reject) => {
       axios(apiURL)
         .then((response) => {
+          if (!fs.existsSync('public/data')) {
+            fs.mkdirSync('public/data');
+          }
+
           fs.writeFile(
             `public/data/${key}.json`,
             JSON.stringify(response.data),
@@ -113,6 +118,22 @@ function createRenderPagePromise(env, assets, data, file) {
   });
 }
 
+function createDetailPagePromise(env, { assets, data }, { id, topic }) {
+  return new Promise((resolve, reject) => {
+    const res = env.render('topic.jinja', { assets, data, topic });
+    const content = minify(res, minifyOption);
+    const filepath = path.join('public', 'topic', id, 'index.html');
+    shell.mkdir('-p', path.dirname(filepath));
+    fs.writeFile(filepath, content, 'utf-8', (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
 async function buildPages(apiURLs) {
   const layoutsLoader = new FileSystemLoader('assets/layouts');
   const pagesLoader = new FileSystemLoader('assets/pages');
@@ -123,6 +144,11 @@ async function buildPages(apiURLs) {
 
   const assets = await loadAssets();
   const promises = files.map(createRenderPagePromise.bind(null, env, assets, data));
+  const topics = transformTopics(data.timetable);
+  // eslint-disable-next-line no-restricted-syntax
+  for (const [id, topic] of topics) {
+    promises.push(createDetailPagePromise(env, { assets, data }, { id, topic }));
+  }
 
   return Promise.all(promises)
     .then(() => console.log('All pages is rendered'))
@@ -131,8 +157,8 @@ async function buildPages(apiURLs) {
 
 (async () => {
   const apiURLs = {
-    timetable: 'https://hkoscon.ddns.net/api/v1/days/HKOSCon%202018',
-    general: 'https://hkoscon.ddns.net/api/v1/info/HKOSCon%202018',
+    timetable: 'https://data.hkoscon.org/api/v1/days/HKOSCon%202018',
+    general: 'https://data.hkoscon.org/api/v1/info/HKOSCon%202018',
   };
   await buildAssets(apiURLs);
   await buildPages(apiURLs);
