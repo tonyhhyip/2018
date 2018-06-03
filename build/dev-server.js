@@ -10,6 +10,7 @@ const chokidar = require('chokidar');
 const devConfig = require('./webpack.dev.conf');
 const config = require('../config');
 const { loadAssets, loadData } = require('./parameter');
+const transformTopic = require('./transform');
 
 const app = express();
 
@@ -73,6 +74,7 @@ devMiddleware.waitUntilValid(() => console.log('Server is Ready'));
 
 let data = {};
 let assets = {};
+let topics;
 
 async function updateAssets() {
   assets = await loadAssets();
@@ -80,9 +82,10 @@ async function updateAssets() {
 
 async function updateData() {
   data = await loadData({
-    timetable: 'https://hkoscon.ddns.net/api/v1/days/HKOSCon%202018',
-    general: 'https://hkoscon.ddns.net/api/v1/info/HKOSCon%202018',
+    timetable: 'https://data.hkoscon.org/api/v1/days/HKOSCon%202018',
+    general: 'https://data.hkoscon.org/api/v1/info/HKOSCon%202018',
   });
+  topics = transformTopic(data.timetable);
 }
 
 (() => {
@@ -96,6 +99,17 @@ watcher.on('add', updateData);
 watcher.on('unlink', updateData);
 
 chokidar.watch('./public/assets.json').on('change', updateAssets);
+
+app.get('/2018/topic/:topic', (req, res, next) => {
+  const id = req.params.topic;
+  env.render('topic.jinja', { data, assets, topic: topics.get(id) }, (err, result) => {
+    if (err) {
+      next(err);
+    } else {
+      res.end(result);
+    }
+  });
+});
 
 app.get('/2018/*', (req, res) => {
   let url = req.path;
