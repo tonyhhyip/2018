@@ -125,6 +125,24 @@
             </div>
         </div>
     </div>
+
+
+    <div class="container">
+        <div class="sponsor-types">
+            {% for key, tier in data.general.conference.sponsors %}
+                <div class="sponsor-type sponsor-{{ key }}">
+                    <h2>{{ tier.name }} Sponsor</h2>
+                    <div class="sponsor-type-sponsors row">
+                        {% for sponsor in tier.sponsors %}
+                          <div class="col s12 m6 l3">
+                           <img class="responsive-img" src="{{sponsor.logo}}">
+                          </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {%- endblock -%}
 
 {%- block script -%}
