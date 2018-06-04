@@ -189,7 +189,7 @@ async function buildPages(apiURLs, baseURL, fbAppID) {
   await buildAssets(apiURLs);
   await buildPages(
     apiURLs,
-    'https://hkoscon.org/2018',
+    process.env.BASE_URL || 'https://hkoscon.org/2018',
     process.env.FB_APP_ID || '',
   );
 })();
