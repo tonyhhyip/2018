@@ -9,10 +9,17 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const chokidar = require('chokidar');
 const devConfig = require('./webpack.dev.conf');
 const config = require('../config');
-const { loadAssets, loadData } = require('./parameter');
+const {
+  loadAssets,
+  loadData,
+  topicSlug,
+  topicURL,
+} = require('./parameter');
 const transformTopic = require('./transform');
 
 const app = express();
+const baseURL = process.env.BASE_URL || 'https://hkoscon.org/2018';
+const fbAppID = process.env.FB_APP_ID || '';
 
 /**
  * Setup Nunjucks Template engine
@@ -22,6 +29,8 @@ const layoutsLoader = new FileSystemLoader('assets/layouts', { watch: true });
 const pagesLoader = new FileSystemLoader('assets/pages', { watch: true });
 
 const env = new Environment([pagesLoader, layoutsLoader]);
+env.addFilter('topicSlug', topicSlug);
+env.addFilter('topicURL', topicURL.bind(null, baseURL));
 
 function TemplateEngine(name, options) {
   this.name = name;
@@ -102,7 +111,14 @@ chokidar.watch('./public/assets.json').on('change', updateAssets);
 
 app.get('/2018/topic/:topic', (req, res, next) => {
   const id = req.params.topic;
-  env.render('topic.jinja', { data, assets, topic: topics.get(id) }, (err, result) => {
+  const pageURL = `${baseURL}/topic/${id}/`;
+  env.render('topic.jinja', {
+    assets,
+    data,
+    topic: topics.get(id),
+    pageURL,
+    fbAppID,
+  }, (err, result) => {
     if (err) {
       next(err);
     } else {
@@ -123,7 +139,12 @@ app.get('/2018/*', (req, res) => {
   }
   const file = url.replace(/html$/, 'jinja').replace(/^\/2018\//, '');
   if (fs.existsSync(`./assets/pages/${file}`)) {
-    res.render(file, { data, assets });
+    res.render(file, {
+      data,
+      assets,
+      baseURL,
+      fbAppID,
+    });
   } else {
     res.status(404).end();
   }

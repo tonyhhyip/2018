@@ -7,7 +7,12 @@ const glob = require('glob');
 const { Environment, FileSystemLoader } = require('nunjucks');
 const { minify } = require('html-minifier');
 const config = require('./webpack.prod.conf');
-const { loadData, loadAssets } = require('./parameter');
+const {
+  loadData,
+  loadAssets,
+  topicSlug,
+  topicURL,
+} = require('./parameter');
 const transformTopics = require('./transform');
 
 process.env.NODE_ENV = 'production';
@@ -89,16 +94,27 @@ const minifyOption = {
   html5: true,
 };
 
-function createRenderPagePromise(env, assets, data, file) {
+function createRenderPagePromise(env, assets, data, baseURL, fbAppID, file) {
   return new Promise((resolve, reject) => {
-    const res = env.render(file.replace('assets/pages/', ''), { assets, data });
-    const content = minify(res, minifyOption);
     if (path.basename(file).startsWith('_')) {
       // if the filename starts with underscore, do not render it.
       resolve();
       return;
     }
-    const filepath = file.replace('jinja', 'html').replace('assets/pages', 'public');
+
+    // parse proper output path and pageURL
+    const urlpath = file.replace(/^assets\/pages\/(.+?)\.jinja$/, '$1.html');
+    const filepath = `public/${urlpath}`;
+    const normalizedPath = urlpath.replace(/(^|\/)index\.html$/, '$1');
+    const pageURL = `${baseURL}/${normalizedPath}`;
+
+    const res = env.render(file.replace('assets/pages/', ''), {
+      assets,
+      data,
+      pageURL,
+      fbAppID,
+    });
+    const content = minify(res, minifyOption);
     if (!fs.existsSync(filepath)) {
       const dirpath = path.dirname(filepath);
       if (!fs.existsSync(dirpath)) {
@@ -118,9 +134,18 @@ function createRenderPagePromise(env, assets, data, file) {
   });
 }
 
-function createDetailPagePromise(env, { assets, data }, { id, topic }) {
+function createDetailPagePromise(env, {
+  assets, data, baseURL, fbAppID,
+}, { id, topic }) {
   return new Promise((resolve, reject) => {
-    const res = env.render('topic.jinja', { assets, data, topic });
+    const pageURL = topicURL(baseURL, id);
+    const res = env.render('topic.jinja', {
+      assets,
+      data,
+      topic,
+      pageURL,
+      fbAppID,
+    });
     const content = minify(res, minifyOption);
     const filepath = path.join('public', 'topic', id, 'index.html');
     shell.mkdir('-p', path.dirname(filepath));
@@ -134,20 +159,28 @@ function createDetailPagePromise(env, { assets, data }, { id, topic }) {
   });
 }
 
-async function buildPages(apiURLs) {
+async function buildPages(apiURLs, baseURL, fbAppID) {
   const layoutsLoader = new FileSystemLoader('assets/layouts');
   const pagesLoader = new FileSystemLoader('assets/pages');
   const env = new Environment([pagesLoader, layoutsLoader]);
+  env.addFilter('topicSlug', topicSlug);
+  env.addFilter('topicURL', topicURL.bind(null, baseURL));
 
   const files = await getPageFiles();
   const data = await loadData(apiURLs);
 
   const assets = await loadAssets();
-  const promises = files.map(createRenderPagePromise.bind(null, env, assets, data));
+  const createRenderPage = createRenderPagePromise.bind(null, env, assets, data, baseURL, fbAppID);
+  const promises = files.map(createRenderPage);
   const topics = transformTopics(data.timetable);
   // eslint-disable-next-line no-restricted-syntax
   for (const [id, topic] of topics) {
-    promises.push(createDetailPagePromise(env, { assets, data }, { id, topic }));
+    promises.push(createDetailPagePromise(env, {
+      assets,
+      data,
+      baseURL,
+      fbAppID,
+    }, { id, topic }));
   }
 
   return Promise.all(promises)
@@ -161,5 +194,9 @@ async function buildPages(apiURLs) {
     general: 'https://data.hkoscon.org/api/v1/info/HKOSCon%202018',
   };
   await buildAssets(apiURLs);
-  await buildPages(apiURLs);
+  await buildPages(
+    apiURLs,
+    process.env.BASE_URL || 'https://hkoscon.org/2018',
+    process.env.FB_APP_ID || '',
+  );
 })();
