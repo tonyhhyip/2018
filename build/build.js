@@ -7,7 +7,12 @@ const glob = require('glob');
 const { Environment, FileSystemLoader } = require('nunjucks');
 const { minify } = require('html-minifier');
 const config = require('./webpack.prod.conf');
-const { loadData, loadAssets } = require('./parameter');
+const {
+  loadData,
+  loadAssets,
+  topicSlug,
+  topicURL,
+} = require('./parameter');
 const transformTopics = require('./transform');
 
 process.env.NODE_ENV = 'production';
@@ -133,7 +138,7 @@ function createDetailPagePromise(env, {
   assets, data, baseURL, fbAppID,
 }, { id, topic }) {
   return new Promise((resolve, reject) => {
-    const pageURL = `${baseURL}/topic/${id}/`;
+    const pageURL = topicURL(baseURL, id);
     const res = env.render('topic.jinja', {
       assets,
       data,
@@ -158,6 +163,8 @@ async function buildPages(apiURLs, baseURL, fbAppID) {
   const layoutsLoader = new FileSystemLoader('assets/layouts');
   const pagesLoader = new FileSystemLoader('assets/pages');
   const env = new Environment([pagesLoader, layoutsLoader]);
+  env.addFilter('topicSlug', topicSlug);
+  env.addFilter('topicURL', topicURL.bind(null, baseURL));
 
   const files = await getPageFiles();
   const data = await loadData(apiURLs);

@@ -9,7 +9,12 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const chokidar = require('chokidar');
 const devConfig = require('./webpack.dev.conf');
 const config = require('../config');
-const { loadAssets, loadData } = require('./parameter');
+const {
+  loadAssets,
+  loadData,
+  topicSlug,
+  topicURL,
+} = require('./parameter');
 const transformTopic = require('./transform');
 
 const app = express();
@@ -24,6 +29,8 @@ const layoutsLoader = new FileSystemLoader('assets/layouts', { watch: true });
 const pagesLoader = new FileSystemLoader('assets/pages', { watch: true });
 
 const env = new Environment([pagesLoader, layoutsLoader]);
+env.addFilter('topicSlug', topicSlug);
+env.addFilter('topicURL', topicURL.bind(null, baseURL));
 
 function TemplateEngine(name, options) {
   this.name = name;

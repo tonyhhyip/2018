@@ -1,5 +1,4 @@
-const { URL } = require('url');
-const path = require('path');
+const { topicSlug } = require('./parameter');
 
 function transformTopics(timetable) {
   const map = new Map();
@@ -7,9 +6,7 @@ function transformTopics(timetable) {
     timeslots.forEach(({ startTime, endTime, events }) => {
       events.forEach((e) => {
         if (!e.topic) return;
-        const u = new URL(e.internal);
-        const id = path.basename(u.pathname);
-        map.set(id, {
+        map.set(topicSlug(e), {
           day,
           date,
           startTime,
