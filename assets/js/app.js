@@ -2,7 +2,6 @@ import 'babel-polyfill';
 import $ from 'jquery';
 import './https';
 import './gdpr';
-import './ga';
 import '../scss/app.scss';
 import './toc';
 import './offline';

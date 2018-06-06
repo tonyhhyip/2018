@@ -10,5 +10,8 @@ if (localStorage.getItem(GDPRKey) === null) {
   document.querySelector('[data-reply=agree]').addEventListener('click', () => {
     localStorage.setItem(GDPRKey, 'confirm');
     modal.classList.remove('show');
+    import('./ga');
   });
+} else {
+  import('./ga')
 }
