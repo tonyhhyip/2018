@@ -13,5 +13,5 @@ if (localStorage.getItem(GDPRKey) === null) {
     import('./ga');
   });
 } else {
-  import('./ga')
+  import('./ga');
 }
