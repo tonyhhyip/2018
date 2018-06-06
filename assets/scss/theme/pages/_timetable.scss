@@ -330,6 +330,7 @@
       opacity: 1;
       top: 10%;
       transform: scaleX(1) scaleY(1);
+      overflow-y: hidden;
 
       .header {
         display: flex;
@@ -472,6 +473,20 @@
 
               }
             }
+          }
+        }
+      }
+
+      .modal-footer {
+        height: 72px;
+        > .share {
+          display: inline-block;
+          float: left;
+          button.facebook {
+            background-color: #3B5998;
+          }
+          button.twitter {
+            background-color: #1DA1F2;
           }
         }
       }

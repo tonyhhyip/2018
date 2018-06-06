@@ -2,6 +2,7 @@ const fs = require('fs');
 const axios = require('axios');
 const path = require('path');
 const glob = require('glob');
+const { URL } = require('url');
 const yaml = require('js-yaml');
 
 const assetsPath = './public';
@@ -79,5 +80,31 @@ function loadAssets() {
   });
 }
 
+/**
+ * topicSlug
+ * Generates the slug string of a given topic object.
+ * @param {Object} topic The topic object as retrieved from API.
+ * @return {string} The normalized slug string of the topic.
+ */
+function topicSlug(topic) {
+  if (typeof topic !== 'object') return '';
+  if (typeof topic.internal !== 'string') return topic.replace(/[^_\W]+/g, '', '').replace(' ', '-').toLowerCase();
+  const u = new URL(topic.internal);
+  return path.basename(u.pathname);
+}
+
+/**
+ * topicURL
+ * Generates the topic's URL by given slug.
+ * @param {string} baseURL The base URL of site without trailing slash
+ * @param {string} slug The slug string of the topic.
+ * @return {string} The full topic URL of the topic.
+ */
+function topicURL(baseURL, slug) {
+  return `${baseURL}/topic/${slug}/`;
+}
+
 exports.loadData = loadData;
 exports.loadAssets = loadAssets;
+exports.topicSlug = topicSlug;
+exports.topicURL = topicURL;

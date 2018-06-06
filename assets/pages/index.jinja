@@ -125,15 +125,33 @@
             </div>
         </div>
     </div>
+
+
+    <div class="container">
+        <div class="sponsor-types">
+            {% for key, tier in data.general.conference.sponsors %}
+                <div class="sponsor-type sponsor-{{ key }}">
+                    <h2>{{ tier.name }} Sponsor</h2>
+                    <div class="sponsor-type-sponsors row">
+                        {% for sponsor in tier.sponsors %}
+                          <div class="col s12 m6 l3">
+                           <img class="responsive-img" src="{{sponsor.logo}}">
+                          </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {%- endblock -%}
 
 {%- block script -%}
-    <script>(function(d, s, id) {
+    <script async defer>(function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
         js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
+        js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));</script>
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <script async defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 {%- endblock -%}

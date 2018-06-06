@@ -1,14 +1,22 @@
+{%- set site_name = 'Hong Kong Open Source Conference 2018' -%}
+{%- set page_desc_default = 'Hong Kong Open Source Conference is the biggest annual open source event in Hong Kong' -%}
+{%- set keyvisual = 'https://hkoscon.org/2018/images/keyvisual.jpg' -%}
 <!doctype html>
 <html class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-    <meta name="description" content="{% block meta_desc %}Hong Kong Open Source Conference 2018 (HKOSCon 2018) will be started soon.{% endblock %}">
-    <meta name="author" content="Hong Kong Open Source Conference 2018">
-    <meta property="og:site_name" content="Hong Kong Open Source Conference 2018">
-    <meta property="og:title" content="{% block title %}Hong Kong Open Source Conference 2018{% endblock %}">
-    <title>Hong Kong Open Source Conference 2018</title>
+    <meta name="description" content="{% if page_desc %}{{ page_desc | striptags | truncate(150) }}{% else %}{{ page_desc_default }}{% endif %}">
+    <meta name="author" content="{{ site_name }}">
+    <meta property="og:site_name" content="{{ site_name }}">
+    <meta property="og:type" content="{% if page_type %}{{ page_type }}{% else %}website{% endif %}">
+    <meta property="og:title" content="{% if page_title %}{{ page_title }}{% else %}{{ site_name }}{% endif %}">
+    <meta property="og:description" content="{% if page_desc %}{{ page_desc | striptags | truncate(150) }}{% else %}{{ page_desc_default }}{% endif %}">
+    <meta property="og:image" content="{% if page_feature_image %}{{ page_feature_image }}{% else %}{{ keyvisual }}{% endif %}">
+    {% if pageURL %}<meta property="og:url" content="{{ pageURL }}">{% endif %}
+    {% if fbAppID %}<meta property="fb:app_id" content="{{ fbAppID }}">{% endif %}
+    <title>{% if page_title %}{{ page_title }} | {{ site_name }}{% else %}{{ site_name }}{% endif %}</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700|Material+Icons" rel="stylesheet">
     <meta name="theme-color" content="#294454">
     <link rel="manifest" href="/2018/manifest.json">

@@ -1,3 +1,4 @@
+{% set page_title = 'Schedule' %}
 {% extends "default.jinja" %}
 
 {% block content %}
@@ -27,7 +28,7 @@
                                 {%- for event in timeslot.events  -%}
                                 <div class="session-wrap">
                                     <div class="session">
-                                        <div class="session-card z-depth-1">
+                                        <a class="session-card z-depth-1" href="{{ event | topicSlug | topicURL }}">
                                             <div class="overlay">
                                                 <div class="card-content">
                                                     <span class="card-title">{{ event.display }}</span>
@@ -45,7 +46,6 @@
                                                     </div>
                                                     <span><i class="material-icons">event</i></span>
                                                 </div>
-
 
                                                 {%- if event.topic -%}
                                                     <div class="speakers">
@@ -66,7 +66,7 @@
                                                     </div>
                                                 {%- endif -%}
                                             </div>
-                                        </div>
+                                        </a>
                                     </div>
                                 </div>
                                 {%- endfor -%}
@@ -81,7 +81,17 @@
 {% endblock %}
 
 {%- block script -%}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.1.1/webcomponents-loader.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.1.1/custom-elements-es5-adapter.js"></script>
-    <script src="{{ assets.scripts.timetable }}"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.1.1/webcomponents-loader.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.1.1/custom-elements-es5-adapter.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.1/clipboard.min.js"></script>
+    <script defer src="{{ assets.scripts.timetable }}"></script>
+    <script defer async>
+      (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_GB/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
 {%- endblock -%}
